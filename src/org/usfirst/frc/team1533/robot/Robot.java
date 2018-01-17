@@ -1,4 +1,5 @@
 package org.usfirst.frc.team1533.robot;
+import org.usfirst.frc.team1533.robot.commands.CommandBase;
 import org.usfirst.frc.team1533.robot.commands.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,19 +16,22 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 
 public class Robot extends IterativeRobot {
-
+	//Defines autonomous selection tools
 	Command autoCommand;
 	SendableChooser<Command> autoChooser;
 	
     public void robotInit() {
-        CommandBase.init();
+        //Initializes CommandBase
+    	CommandBase.init();
         
+    	//Starts USB Camera feed at set resolution
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(1280, 720);
         
+        //Sets up autonomous code selector
 		autoChooser = new SendableChooser<Command>();
-		autoChooser.addDefault("Middle Switch", middleSwitch());
-		autoChooser.addObject("Baseline", autoBaseline());
+		autoChooser.addDefault("Middle Switch", new middleSwitch());
+		autoChooser.addObject("Baseline", new autoBaseline());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }
 
@@ -40,15 +44,19 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-    	String gameData;
+    	
+    	
+    	
+/*    	String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
 		if(gameData.charAt(0) == 'L')
 		{
 			//Left Switch Auto Code
 		} else {
 			//Right Switch Auto Code
 		}
-
+*/
     }
 
     public void autonomousPeriodic() {

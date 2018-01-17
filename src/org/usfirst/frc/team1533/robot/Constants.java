@@ -39,7 +39,7 @@ public class Constants {
     }
     
     
-    public static class cubeMech {
+    public static class CubeMech {
     	
     }
     

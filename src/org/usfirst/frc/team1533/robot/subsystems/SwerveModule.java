@@ -26,8 +26,7 @@ public class SwerveModule {
      * @param locationX x coordinate of wheel relative to center of robot (inches)
      * @param locationY y coordinate of wheel relative to center of robot (inches)
      */
-    public SwerveModule(SpeedController driveController, SpeedController steerController, AbsoluteEncoder steerEncoder,
-            double locationX, double locationY) {
+    public SwerveModule(SpeedController driveController, SpeedController steerController, AbsoluteEncoder steerEncoder, double locationX, double locationY) {
         this.steerController = steerController;
         this.driveController = driveController;
         this.steerEncoder = steerEncoder;
