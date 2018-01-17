@@ -33,4 +33,22 @@ public class Constants {
         public static final double BASE_LENGTH = 26.25;
     }
 
+    
+    public static class Elevator {
+    	
+    }
+    
+    
+    public static class cubeMech {
+    	
+    }
+    
+    
+    public static class Climber {
+    	
+    }
+    
+    public static class Platforms {
+    	
+    }
 }
