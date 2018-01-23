@@ -17,7 +17,7 @@ public class DriveCommand extends CommandBase {
         if (Math.abs(y) < 0.1) y = 0;
         if (Math.abs(rotation) < 0.1) rotation = 0;
         
-        swerve.driveRobotOriented(x, y, rotation);
+        swerve.driveNormal(x, y, rotation);
     }
 
     protected boolean isFinished() {
