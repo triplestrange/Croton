@@ -1,13 +1,13 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
+import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,9 +31,9 @@ public class SwerveDrive extends Subsystem {
 	/**
 	 * Custom constructor for current robot.
 	 */
-	public SwerveDrive(Joystick joy1, org.usfirst.frc.team1533.robot.subsystems.Gyro gyro2) {
+	public SwerveDrive(Joystick joy1,Gyro gyro) {
 		this.joy1 = joy1;
-		this.gyro = (Gyro) gyro2;
+		this.gyro = (Gyro) gyro;
 		//initialize array of modules
 		//array can be any size, as long as the position of each module is specified in its constructor
 		modules = new SwerveModule[] {

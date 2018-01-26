@@ -19,7 +19,7 @@ public class DriveForwardTime extends Command {
 	}
 	
 	public void execute() {
-		Robot.swerve.driveNormal(0, speed, -Robot.gyro2.getAngle() * 0.01);
+		Robot.swerve.driveNormal(0, speed, -Robot.gyro.getAngle() * 0.01);
 	}
 	
 	protected boolean isFinished() {

@@ -16,20 +16,19 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 
 public class Robot extends IterativeRobot {
-	public static Robot robot;
 	public static Joystick joy1, joy2;
 	public static SwerveDrive swerve;
-	public static Gyro gyro2;
+	public static Gyro gyro;
 	
 	//Defines autonomous selection tools
 	Command autoCommand;
 	SendableChooser<Command> autoChooser;
 	
     public void robotInit() {
-    	gyro2 = new Gyro();
+    	gyro = new Gyro();
     	joy1 = new Joystick(0);
         joy2 = new Joystick(1);
-    	swerve = new SwerveDrive(joy1, gyro2);
+    	swerve = new SwerveDrive(joy1, gyro);
         //Initializes CommandBase
     	CommandBase.init();
         
@@ -53,19 +52,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	if (autoCommand != null) autoCommand.cancel();
+		autoCommand = (Command) autoChooser.getSelected();
+		autoCommand.start();
     	
-    	
-    	
-/*    	String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
-		if(gameData.charAt(0) == 'L')
-		{
-			//Left Switch Auto Code
-		} else {
-			//Right Switch Auto Code
-		}
-*/
     }
 
     public void autonomousPeriodic() {
