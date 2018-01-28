@@ -1,5 +1,4 @@
 package org.usfirst.frc.team1533.robot.commands;
-
 import org.usfirst.frc.team1533.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;

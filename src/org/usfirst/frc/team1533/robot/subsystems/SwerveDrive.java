@@ -5,7 +5,7 @@ import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.PWMSpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +24,7 @@ public class SwerveDrive extends Subsystem {
 	Vector tankVector;
 	Joystick joy1, joy2;
 	Gyro gyro;
-	SpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
+	PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
 	PIDController pid;
 	double lastAngle;
 
@@ -223,8 +223,6 @@ public class SwerveDrive extends Subsystem {
 		}
 	}
 
-
-//hi mom
 	public void stop(int module){
 		modules[module].driveController.set(0);
 		modules[module].steerController.set(0);

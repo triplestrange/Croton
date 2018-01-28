@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class SwerveModule {
     PIDController steerPID;
-    SpeedController steerController, driveController; //SpeedController used so this can be talon, victor, jaguar, CAN talon...
+    PWMSpeedController steerController, driveController; //SpeedController used so this can be talon, victor, jaguar, CAN talon...
     public AbsoluteEncoder steerEncoder;
     double positionX, positionY; //position of this wheel relative to the center of the robot
     //from the robot's perspective, +y is forward and +x is to the right
@@ -23,8 +23,7 @@ public class SwerveModule {
      * @param positionX x coordinate of wheel relative to center of robot (inches)
      * @param positionY y coordinate of wheel relative to center of robot (inches)
      */
-    public SwerveModule(SpeedController driveController, SpeedController steerController, 
-    		AbsoluteEncoder steerEncoder, double positionX, double positionY) {
+    public SwerveModule(PWMSpeedController driveController, PWMSpeedController steerController, AbsoluteEncoder steerEncoder, double positionX, double positionY) {
     	this.steerController = steerController;
     	this.driveController = driveController;
     	this.steerEncoder = steerEncoder;
