@@ -33,32 +33,32 @@ public class SwerveDrive extends Subsystem {
 	 */
 	public SwerveDrive(Joystick joy1,Gyro gyro) {
 		this.joy1 = joy1;
-		this.gyro = (Gyro) gyro;
-		//initialize array of modules
-		//array can be any size, as long as the position of each module is specified in its constructor
+		this.gyro = gyro;
+		
+		//Initializes and defines Swerve Modules.  The Array can be of any size, so long as they are all defined
 		modules = new SwerveModule[] {
-				//front left
+				//front left swerve module
 				new SwerveModule(new Talon(Constants.SwerveDrive.FL_DRIVE),
 						new Talon(Constants.SwerveDrive.FL_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.FL_ENCODER, Constants.SwerveDrive.FL_ENC_OFFSET),
 						-Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
-				//front right
+				//front right swerve module
 				new SwerveModule(new Talon(Constants.SwerveDrive.FR_DRIVE), 
 						new Talon(Constants.SwerveDrive.FR_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.FR_ENCODER, Constants.SwerveDrive.FR_ENC_OFFSET),
 						Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
-				//back left
+				//back left swerve module
 				new SwerveModule(new Talon(Constants.SwerveDrive.BL_DRIVE),
 						new Talon(Constants.SwerveDrive.BL_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.BL_ENCODER, Constants.SwerveDrive.BL_ENC_OFFSET),
 						-Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						-Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
-				//back right
+				//back right swerve module
 				new SwerveModule(new Talon(Constants.SwerveDrive.BR_DRIVE), 
 						new Talon(Constants.SwerveDrive.BR_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.BR_ENCODER, Constants.SwerveDrive.BR_ENC_OFFSET),
@@ -181,23 +181,23 @@ public class SwerveDrive extends Subsystem {
 
 
 	public void move(){
-		if(joy1.getRawButton(Constants.Joystick.RIGHT_TRIGGER)){	
+		if(joy1.getRawButton(Constants.Controller.RIGHT_TRIGGER)){	
 			if (!ypressed) drivingField = !drivingField;
 			ypressed = true;
 			SmartDashboard.putBoolean("field?", drivingField);
 		}else{
 			ypressed = false;
 		}
-		if(joy1.getRawButton(Constants.Joystick.LEFT_TRIGGER)){
+		if(joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)){
 			gyro.reset();
 		}
 		
-		if (joy1.getRawButton(Constants.Joystick.B)) lockWheels();
+		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
 		double speed = 100;
 //		if (joy1.getRawButton(Constants.RIGHT_TRIGGER)) speed = 100;
 		double turnRate = 45;
 		
-		if (joy1.getRawButton(Constants.Joystick.LEFT_BUMPER)) turnRate = 100;
+		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) turnRate = 100;
 		double x = joy1.getX();
 		double y = joy1.getY();
 		double z = joy1.getRawAxis(2);
