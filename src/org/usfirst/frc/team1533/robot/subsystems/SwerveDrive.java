@@ -195,7 +195,7 @@ public class SwerveDrive extends Subsystem {
 		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
 		double speed = 100;
 //		if (joy1.getRawButton(Constants.RIGHT_TRIGGER)) speed = 100;
-		double turnRate = 45;
+		double turnRate = 80;
 		
 		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) turnRate = 100;
 		double x = joy1.getX();

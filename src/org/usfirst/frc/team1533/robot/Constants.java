@@ -31,12 +31,16 @@ public class Constants {
         public static final int BL_ENCODER = 3;
         
         //Offset of the encoders to correct the orientation of installation
-        public final static double FL_ENC_OFFSET = 114;
-    	public final static double FR_ENC_OFFSET = 115;
-    	public final static double BL_ENC_OFFSET = 225;
-    	public final static double BR_ENC_OFFSET = 69;
+        //public final static double FL_ENC_OFFSET = 117;
+    	//public final static double FR_ENC_OFFSET = 115;
+    	//public final static double BL_ENC_OFFSET = 227;
+    	//public final static double BR_ENC_OFFSET = 69;
     	//Whether or not the encoders are reversed
-        public static final boolean ENCODERS_REVERSED = true;
+        public final static double FL_ENC_OFFSET = 190;
+    	public final static double FR_ENC_OFFSET = -71;
+    	public final static double BL_ENC_OFFSET = 14;
+    	public final static double BR_ENC_OFFSET = 37;
+        public static final boolean ENCODERS_REVERSED = false;
 
         //Wheel Base information to determine the location of the modules
         public static final double WHEEL_BASE_WIDTH = 22.5;
@@ -71,7 +75,7 @@ public class Constants {
     	//Controller 2
     	//square
     	public final static int X2 = 1;
-    	//ecks
+    	//X
     	public final static int A2 = 2;
     	//circle
     	public final static int B2 = 3;
