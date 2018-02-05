@@ -1,16 +1,22 @@
 package org.usfirst.frc.team1533.robot;
-import org.usfirst.frc.team1533.robot.commands.*;
-import org.usfirst.frc.team1533.robot.subsystems.*;
+import org.usfirst.frc.team1533.robot.commands.Baseline;
+import org.usfirst.frc.team1533.robot.commands.DriveCommand;
+import org.usfirst.frc.team1533.robot.commands.MiddleSwitch;
+import org.usfirst.frc.team1533.robot.subsystems.CubeMech;
+import org.usfirst.frc.team1533.robot.subsystems.Elevator;
+import org.usfirst.frc.team1533.robot.subsystems.Gyro;
+import org.usfirst.frc.team1533.robot.subsystems.SwerveDrive;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
+	//Defines all of the Robot subsytems
 	public static Gyro gyro;
 	public static Joystick joy1;
 	public static Joystick joy2;
@@ -19,8 +25,8 @@ public class Robot extends IterativeRobot {
 	public static CubeMech cubemech;
 	public static DriveCommand drive;
 	//Defines autonomous selection tools
-	Command autoCommand;
-	SendableChooser<Command> autoChooser;
+	Command AutoCommand;
+	SendableChooser<Command> AutoChooser;
 	
 	public void robotInit() {
 		//Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
@@ -34,18 +40,18 @@ public class Robot extends IterativeRobot {
 
 		//Starts USB Camera feed at set resolution, FPS, and Brightness
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(800, 600);
+		camera.setResolution(400, 240);
+		camera.setFPS(25);
 
 		//Setup Autonomous command selection within SmartDashboard
-		autoChooser = new SendableChooser<Command>();
-		autoChooser.addDefault("Middle Switch", new MiddleSwitch());
-		autoChooser.addObject("Baseline",  new Baseline());
-		
+		AutoChooser = new SendableChooser<Command>();
+		AutoChooser.addDefault("Middle Switch", new MiddleSwitch());
+		AutoChooser.addObject("Baseline",  new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", AutoChooser);
 	}
 
 	public void disabledInit() {
-		if (autoCommand != null) autoCommand.cancel();
-
+		if (AutoCommand != null) AutoCommand.cancel();
 	}
 
 	public void disabledPeriodic() {
@@ -53,10 +59,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-		if (autoCommand != null) autoCommand.cancel();
-		autoCommand = (Command) autoChooser.getSelected();
-		autoCommand.start();
-
+		AutoCommand = (Command) AutoChooser.getSelected();
+		AutoCommand.start();
 	}
 
 	public void autonomousPeriodic() {
@@ -70,8 +74,6 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
-		
 	}
 
 }

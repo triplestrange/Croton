@@ -1,28 +1,14 @@
 package org.usfirst.frc.team1533.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
+/*
+ * Tested on Svarog, functional
  */
+
 public class Baseline extends CommandGroup {
 
-    public Baseline() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-    	addSequential(new DriveForwardTime(1.5, .75));
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    }
+	public Baseline() {
+		// Drive Forward for 2 seconds at 75% speed
+		addSequential(new DriveForwardTime(2, .75));
+	}
 }
