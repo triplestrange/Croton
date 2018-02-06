@@ -23,7 +23,6 @@ public class Robot extends IterativeRobot {
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
-	public static DriveCommand drive;
 	//Defines autonomous selection tools
 	Command AutoCommand;
 	SendableChooser<Command> AutoChooser;
@@ -36,12 +35,12 @@ public class Robot extends IterativeRobot {
 		swerve = new SwerveDrive(joy1, gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
-		drive = new DriveCommand();
 
 		//Starts USB Camera feed at set resolution, FPS, and Brightness
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(400, 240);
-		camera.setFPS(25);
+		camera.setFPS(20);
+		camera.setBrightness(15);
 
 		//Setup Autonomous command selection within SmartDashboard
 		AutoChooser = new SendableChooser<Command>();
@@ -68,12 +67,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		//Starts Drive Command for Swerve
-		drive.start();
+		
 	}
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		swerve.move();
 	}
 
 }

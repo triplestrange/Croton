@@ -32,19 +32,17 @@ public class Constants {
 
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Junior
-		/*
-		 * public final static double FL_ENC_OFFSET = 117;
-		 * public final static double FR_ENC_OFFSET = 115; 
-		 * public final static double BL_ENC_OFFSET = 227; 
-		 * public final static double BR_ENC_OFFSET = 69;
-		 */
+		 public final static double FL_ENC_OFFSET = 117;
+		 public final static double FR_ENC_OFFSET = 116; 
+		 public final static double BL_ENC_OFFSET = 230; 
+		 public final static double BR_ENC_OFFSET = 69;
 		
 		// Encoder offsets for Svarog
-		public final static double FL_ENC_OFFSET = 190;
+		/*public final static double FL_ENC_OFFSET = 190;
 		public final static double FR_ENC_OFFSET = -71;
 		public final static double BL_ENC_OFFSET = 14;
 		public final static double BR_ENC_OFFSET = 37;
-
+*/
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;
 

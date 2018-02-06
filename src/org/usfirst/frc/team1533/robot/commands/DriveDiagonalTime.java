@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1533.robot.commands;
 import org.usfirst.frc.team1533.robot.Robot;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.command.Command;
+
+/*
+@TODO Comments...
+*/
 
 public class DriveDiagonalTime extends Command {
 	double duration;

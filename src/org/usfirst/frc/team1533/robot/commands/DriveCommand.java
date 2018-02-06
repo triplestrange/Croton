@@ -27,7 +27,7 @@ public class DriveCommand extends Command {
 		double y = -Robot.joy1.getY();
 		
 		//Gets the "X" axis position of the right joystick and asigns it to a variable
-		double rotation = Robot.joy1.getRawAxis(4);
+		double rotation = Robot.joy1.getZ();
 		
 		//If the Absolute Value of the joysticks postitions is less than .1, then the value is assigned to 0
 		//This acounts for slight issues with joystick calibrations causing the resting positions to not equal 0 

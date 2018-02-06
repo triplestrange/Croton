@@ -2,32 +2,32 @@ package org.usfirst.frc.team1533.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
+/*
+Under development 
+*/
 public class MiddleSwitch extends CommandGroup {
 
 	public MiddleSwitch() {
 		
 		//Sets Swerve wheels to forwards orientation
 		addSequential(new DriveDiagonalTime(0,0,0));
-		//Moves Swerve at an angle towards right Switch
-		addSequential(new DriveDiagonalTime(1.72,-.75,65));
-		//Acts as a 3 second pause while reorinetating the swerve wheels to 0 degrees
-		addSequential(new DriveDiagonalTime(3,0,0));
-		//Reverses Robot towards Driver Station
-		addSequential(new DriveDiagonalTime(.3,.1,90));
+		
+		//Moves Swerve at an angle towards right Switch Fastly, and then slowly
+		addSequential(new DriveDiagonalTime(1.7,-.75,65));
+		addSequential(new DriveDiagonalTime(.7,-.25,65));
+		
+		//Acts as a 3 second pause while slowly moving backwards
+		addSequential(new DriveForwardTime(3,-.2));
+		
 		//"Slides" robot towards the Fence
-		addSequential(new DriveDiagonalTime(1.6,-.5,0));
+		addSequential(new DriveDiagonalTime(1.8,-.5,0));
+		
 		//Moves Forward toward the Null Zone
-		addSequential(new DriveDiagonalTime(1.9,-.75,90));
+		addSequential(new DriveDiagonalTime(2,-.75,90));
+		
 		//Rotates Swerve to face opposite fence
-		addSequential(new SwerveRotate(-1,.47));
-		//Moves Swerve towards mid-field
-		addSequential(new DriveDiagonalTime(1,-.5,0));
-		//Rotates Swerve to face a Power Cube
-		addSequential(new SwerveRotate(-1,.47));
-		//Moves Robot towards Power Cube
-		 addSequential(new DriveDiagonalTime(.5,-.75,0));
+		addSequential(new SwerveRotate(.45, -1));
+		
+		//Swerve Rotate is currently having issues, view the SwerveRotate Command for further details
 	}
 }

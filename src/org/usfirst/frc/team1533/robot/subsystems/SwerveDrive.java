@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Duncan Wizardman Page
- * *
  */
 public class SwerveDrive extends Subsystem {
 	public double pivotX, pivotY, lastpressed, transAngle, pivotspeed;
@@ -200,7 +199,7 @@ public class SwerveDrive extends Subsystem {
 		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) turnRate = 100;
 		double x = joy1.getX();
 		double y = joy1.getY();
-		double z = joy1.getRawAxis(2);
+		double z = joy1.getZ();
 		
 		if((Math.abs(x) > .1 || Math.abs(y)>.1 || Math.abs(z) > .1) && !drivingField){		
 			if(Math.abs(z)<.1){

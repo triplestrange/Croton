@@ -5,8 +5,7 @@ import org.usfirst.frc.team1533.robot.Constants;
 import edu.wpi.first.wpilibj.*;
 
 /**
- * @author Duncan
- *
+ *@author Duncan Wizardman Page
  */
 public class SwerveModule {
     PIDController steerPID;
