@@ -1,13 +1,15 @@
 package org.usfirst.frc.team1533.robot.commands;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /*
 Under development 
 */
-public class MiddleSwitch extends CommandGroup {
+public class RightSwitch extends CommandGroup {
 
-	public MiddleSwitch() {
+	public RightSwitch() {
+		
+		//Resets Gyro orientation
+		addSequential(new GyroReset());
 		
 		//Sets Swerve wheels to forwards orientation
 		addSequential(new DriveDiagonalTime(0,0,0));
@@ -26,7 +28,7 @@ public class MiddleSwitch extends CommandGroup {
 		addSequential(new DriveDiagonalTime(2,-.75,90));
 		
 		//Rotates Swerve to face opposite fence
-		addSequential(new SwerveRotate(.45, -1));
+		addSequential(new SwerveRotate(.45, 180));
 		
 		//Swerve Rotate is currently having issues, view the SwerveRotate Command for further details
 	}
