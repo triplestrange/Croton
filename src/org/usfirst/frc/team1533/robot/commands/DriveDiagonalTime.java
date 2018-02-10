@@ -23,7 +23,7 @@ public class DriveDiagonalTime extends Command {
 	}
 
 	public void execute() {
-		Robot.swerve.driveNormal(-speed * Math.cos(angle * Math.PI / 180), -speed * Math.sin(angle * Math.PI / 180), -Robot.gyro.getAngle() * 0.01);
+		Robot.swerve.driveNormal(-speed * Math.cos(angle * Math.PI / 180), -speed * Math.sin(angle * Math.PI / 180), 0);
 	}
 
 	protected boolean isFinished() {

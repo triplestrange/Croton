@@ -41,10 +41,10 @@ public class Robot extends IterativeRobot {
 		camera.setBrightness(15);
 
 		// Setup Autonomous command selection within SmartDashboard
-		LeftAutoChooser = new SendableChooser<Command>();
-		LeftAutoChooser.addDefault("Switch+RightScale", new LeftSwitch());
-		LeftAutoChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", LeftAutoChooser);
+		//LeftAutoChooser = new SendableChooser<Command>();
+		//LeftAutoChooser.addDefault("Switch+RightScale", new LeftSwitch());
+		//LeftAutoChooser.addObject("Baseline", new Baseline());
+		//SmartDashboard.putData("Autonomous Chooser", LeftAutoChooser);
 		
 		RightAutoChooser = new SendableChooser<Command>();
 		RightAutoChooser.addDefault("Switch+RightScale", new RightSwitch());
@@ -64,13 +64,14 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		gyro.reset();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.length() > 0) {
 			
 			if (gameData.charAt(0) == 'L') {
-				LeftAutoCommand = (Command) LeftAutoChooser.getSelected();
-				LeftAutoCommand.start();
+				//LeftAutoCommand = (Command) LeftAutoChooser.getSelected();
+				//LeftAutoCommand.start();
 			}
 			
 			else {
