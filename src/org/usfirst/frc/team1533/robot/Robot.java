@@ -20,10 +20,14 @@ public class Robot extends IterativeRobot {
 	public static Elevator elevator;
 	public static CubeMech cubemech;
 	// Defines autonomous selection tools
-	Command LeftAutoCommand;
-	SendableChooser<Command> LeftAutoChooser;
-	Command RightAutoCommand;
-	SendableChooser<Command> RightAutoChooser;
+	Command LeftSwitchCommand;
+	SendableChooser<Command> LeftSwitchChooser;
+	Command RightSwitchCommand;
+	SendableChooser<Command> RightSwitchChooser;
+	Command LeftScaleCommand;
+	SendableChooser<Command> LeftScaleChooser;
+	Command RightScaleCommand;
+	SendableChooser<Command> RightScaleChooser;
 
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
@@ -37,26 +41,33 @@ public class Robot extends IterativeRobot {
 		// Starts USB Camera feed at set resolution, FPS, and Brightness
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(400, 240);
-		camera.setFPS(20);
+		camera.setFPS(30);
 		camera.setBrightness(15);
 
-		// Setup Autonomous command selection within SmartDashboard
-		//LeftAutoChooser = new SendableChooser<Command>();
-		//LeftAutoChooser.addDefault("Switch+RightScale", new LeftSwitch());
-		//LeftAutoChooser.addObject("Baseline", new Baseline());
-		//SmartDashboard.putData("Autonomous Chooser", LeftAutoChooser);
+		//Setup Autonomous command selection within SmartDashboard
+		LeftSwitchChooser = new SendableChooser<Command>();
+		LeftSwitchChooser.addDefault("Switch+RightScale", new LeftSwitch());
+		LeftSwitchChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", LeftSwitchChooser);
 		
-		RightAutoChooser = new SendableChooser<Command>();
-		RightAutoChooser.addDefault("Switch+RightScale", new RightSwitch());
-		RightAutoChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", RightAutoChooser);
+		RightSwitchChooser = new SendableChooser<Command>();
+		RightSwitchChooser.addDefault("Switch+RightScale", new RightSwitch());
+		RightSwitchChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", RightSwitchChooser);
+		
+		LeftScaleChooser = new SendableChooser<Command>();
+		LeftScaleChooser.addDefault("Switch+RightScale", new LeftSwitch());
+		LeftScaleChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", LeftScaleChooser);
+		
+		RightScaleChooser = new SendableChooser<Command>();
+		RightScaleChooser.addDefault("Switch+RightScale", new RightSwitch());
+		RightScaleChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", RightScaleChooser);
 	}
 
 	public void disabledInit() {
-		if (LeftAutoCommand != null)
-			LeftAutoCommand.cancel();
-		if (RightAutoCommand != null)
-			RightAutoCommand.cancel();
+		
 	}
 
 	public void disabledPeriodic() {
@@ -70,13 +81,31 @@ public class Robot extends IterativeRobot {
 		if (gameData.length() > 0) {
 			
 			if (gameData.charAt(0) == 'L') {
-				//LeftAutoCommand = (Command) LeftAutoChooser.getSelected();
-				//LeftAutoCommand.start();
+				LeftSwitchCommand = (Command) LeftSwitchChooser.getSelected();
+				LeftSwitchCommand.start();
+				if (gameData.charAt(1) == 'L') {
+					LeftScaleCommand = (Command) LeftScaleChooser.getSelected();
+					LeftScaleCommand.start();
+				}
+				
+				else {
+					RightScaleCommand = (Command) RightScaleChooser.getSelected();
+					RightScaleCommand.start();
+				}
 			}
 			
 			else {
-				RightAutoCommand = (Command) RightAutoChooser.getSelected();
-				RightAutoCommand.start();
+				RightSwitchCommand = (Command) RightSwitchChooser.getSelected();
+				RightSwitchCommand.start();
+				if (gameData.charAt(1) == 'L') {
+					LeftScaleCommand = (Command) LeftScaleChooser.getSelected();
+					LeftScaleCommand.start();
+				}
+				
+				else {
+					RightScaleCommand = (Command) RightScaleChooser.getSelected();
+					RightScaleCommand.start();
+				}
 			}
 		}
 	}
@@ -93,5 +122,4 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		swerve.move();
 	}
-
 }
