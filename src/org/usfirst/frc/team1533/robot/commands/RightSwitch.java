@@ -19,12 +19,12 @@ public class RightSwitch extends CommandGroup {
 		addSequential(new DriveForwardTime(3,-.2));
 		
 		//"Slides" robot towards the Fence
-		addSequential(new DriveDiagonalTime(1.7,-.5,0));
+		addSequential(new DriveDiagonalTime(1.7,-.55,0));
 		//Moves Forward toward the Null Zone
 		
 		//Rotates Swerve to face opposite fence
 		addSequential(new SwerveRotate(-0.5, 170));
-		addSequential(new DriveDiagonalTime(1.8,.78,90));
+		addSequential(new DriveDiagonalTime(1.8,.72,90));
 		
 		addSequential(new DriveDiagonalTime(1, -.51, 0));
 		
