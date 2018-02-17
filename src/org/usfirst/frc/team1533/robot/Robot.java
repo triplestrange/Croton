@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 public class Robot extends IterativeRobot {
 	// Defines all of the Robot subsytems
@@ -20,14 +19,8 @@ public class Robot extends IterativeRobot {
 	public static Elevator elevator;
 	public static CubeMech cubemech;
 	// Defines autonomous selection tools
-	Command LeftSwitchCommand;
-	SendableChooser<Command> LeftSwitchChooser;
-	Command RightSwitchCommand;
-	SendableChooser<Command> RightSwitchChooser;
-	Command LeftScaleCommand;
-	SendableChooser<Command> LeftScaleChooser;
-	Command RightScaleCommand;
-	SendableChooser<Command> RightScaleChooser;
+	Command LeftSwitchCommand, RightSwitchCommand, LeftScaleCommand, RightScaleCommand;
+	SendableChooser<Command> LeftSwitchChooser, RightSwitchChooser, LeftScaleChooser, RightScaleChooser;
 
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.

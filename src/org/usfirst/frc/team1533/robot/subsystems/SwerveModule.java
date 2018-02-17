@@ -2,6 +2,9 @@ package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -9,7 +12,8 @@ import edu.wpi.first.wpilibj.*;
  */
 public class SwerveModule {
     PIDController steerPID;
-    PWMSpeedController steerController, driveController; //SpeedController used so this can be talon, victor, jaguar, CAN talon...
+    WPI_TalonSRX driveController; //SpeedController used so this can be talon, victor, jaguar, CAN talon...
+    WPI_VictorSPX steerController;
     public AbsoluteEncoder steerEncoder;
     double positionX, positionY; //position of this wheel relative to the center of the robot
     //from the robot's perspective, +y is forward and +x is to the right
@@ -22,7 +26,7 @@ public class SwerveModule {
      * @param positionX x coordinate of wheel relative to center of robot (inches)
      * @param positionY y coordinate of wheel relative to center of robot (inches)
      */
-    public SwerveModule(PWMSpeedController driveController, PWMSpeedController steerController, AbsoluteEncoder steerEncoder, double positionX, double positionY) {
+    public SwerveModule(WPI_TalonSRX driveController, WPI_VictorSPX steerController, AbsoluteEncoder steerEncoder, double positionX, double positionY) {
     	this.steerController = steerController;
     	this.driveController = driveController;
     	this.steerEncoder = steerEncoder;

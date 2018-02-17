@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1533.robot.commands;
 import org.usfirst.frc.team1533.robot.Robot;
+import org.usfirst.frc.team1533.robot.subsystems.Gyro;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SwerveRotate extends Command{
@@ -21,7 +23,7 @@ public void execute() {
 }
 
 protected boolean isFinished() {
-    return Math.abs(Robot.gyro.getAngle()) > angle;
+    return Math.abs(Gyro.getAngle()) > angle;
 }
 
 public void end() {

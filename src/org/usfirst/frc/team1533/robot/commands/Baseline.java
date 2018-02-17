@@ -12,7 +12,7 @@ public class Baseline extends CommandGroup {
 		// Orient Swerve Wheels to Forwards
 		//addSequential(new DriveDiagonalTime(1, 0, 0));
 		// Drive Forward for 2 seconds at 75% speed
-		//addSequential(new DriveForwardTime(2.75, .75));
-		addParrallel(new SwerveRotate(1, 0));
+		addParallel(new DriveForwardTime(2.75, .75));
+		addSequential(new SwerveRotate(1, 180));
 	}
 }

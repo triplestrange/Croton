@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.SPI;
 public class Gyro {
 	public static ADXRS450_Gyro gyro;
 	double currentangle;
-	double offset = 0;
+	static double offset = 0;
 	
 	public Gyro(){
 		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 		gyro.calibrate();
 	}
 
-	public double getAngle() {
+	public static double getAngle() {
 		return gyro.getAngle() + offset;
 	}
 	

@@ -3,6 +3,9 @@ package org.usfirst.frc.team1533.robot.subsystems;
 import org.usfirst.frc.team1533.robot.Constants;
 import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PWMSpeedController;
@@ -23,7 +26,7 @@ public class SwerveDrive extends Subsystem {
 	Vector tankVector;
 	Joystick joy1, joy2;
 	Gyro gyro;
-	PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
+	//PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
 	PIDController pid;
 	double lastAngle;
 
@@ -37,29 +40,29 @@ public class SwerveDrive extends Subsystem {
 		//Initializes and defines Swerve Modules.  The Array can be of any size, so long as they are all defined
 		modules = new SwerveModule[] {
 				//front left swerve module
-				new SwerveModule(new Talon(Constants.SwerveDrive.FL_DRIVE),
-						new Talon(Constants.SwerveDrive.FL_STEER),
+				new SwerveModule(new WPI_TalonSRX(Constants.SwerveDrive.FL_DRIVE),
+						new WPI_VictorSPX(Constants.SwerveDrive.FL_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.FL_ENCODER, Constants.SwerveDrive.FL_ENC_OFFSET),
 						-Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
 				//front right swerve module
-				new SwerveModule(new Talon(Constants.SwerveDrive.FR_DRIVE), 
-						new Talon(Constants.SwerveDrive.FR_STEER),
+				new SwerveModule(new WPI_TalonSRX(Constants.SwerveDrive.FR_DRIVE), 
+						new WPI_VictorSPX(Constants.SwerveDrive.FR_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.FR_ENCODER, Constants.SwerveDrive.FR_ENC_OFFSET),
 						Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
 				//back left swerve module
-				new SwerveModule(new Talon(Constants.SwerveDrive.BL_DRIVE),
-						new Talon(Constants.SwerveDrive.BL_STEER),
+				new SwerveModule(new WPI_TalonSRX(Constants.SwerveDrive.BL_DRIVE),
+						new WPI_VictorSPX(Constants.SwerveDrive.BL_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.BL_ENCODER, Constants.SwerveDrive.BL_ENC_OFFSET),
 						-Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						-Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
 						),
 				//back right swerve module
-				new SwerveModule(new Talon(Constants.SwerveDrive.BR_DRIVE), 
-						new Talon(Constants.SwerveDrive.BR_STEER),
+				new SwerveModule(new WPI_TalonSRX(Constants.SwerveDrive.BR_DRIVE), 
+						new WPI_VictorSPX(Constants.SwerveDrive.BR_STEER),
 						new AbsoluteEncoder(Constants.SwerveDrive.BR_ENCODER, Constants.SwerveDrive.BR_ENC_OFFSET),
 						Constants.SwerveDrive.WHEEL_BASE_WIDTH/2,
 						-Constants.SwerveDrive.WHEEL_BASE_LENGTH/2
@@ -157,7 +160,7 @@ public class SwerveDrive extends Subsystem {
 	 */
 
 	private Vector correctOrientationVector(double x, double y) {
-		double angle = gyro.getAngle() * Math.PI / 180;
+		double angle = Gyro.getAngle() * Math.PI / 180;
 		return new Vector (x*Math.cos(angle) - y*Math.sin(angle), x*Math.sin(angle) + y*Math.cos(angle));
 	}
 	public void driveNormal(double translationX, double translationY, double rotation) {
@@ -206,19 +209,19 @@ public class SwerveDrive extends Subsystem {
 				driveNormal((x*speed)/100, (-y*speed)/100, 0);//(-gyro.getAngle()+lastAngle)*.015);
 			}else{
 				driveNormal((x*speed)/100, (-y*speed)/100, (z*turnRate/100));
-				lastAngle = gyro.getAngle();
+				lastAngle = Gyro.getAngle();
 			}
 		}else if((Math.abs(x) > .1 || Math.abs(y)>.1 || Math.abs(z)>.1) && drivingField){
 			if(Math.abs(z)<.1){
 				driveField((x*speed)/100, (-y*speed)/100, 0);//(-gyro.getAngle()+lastAngle)*.015);
 			}else{
 				driveField((x*speed)/100, (-y*speed)/100, (z*turnRate/100));
-				lastAngle = gyro.getAngle();
+				lastAngle = Gyro.getAngle();
 			}
 		}
 		else{
 			driveNormal(0,0,0);
-			lastAngle = gyro.getAngle();
+			lastAngle = Gyro.getAngle();
 		}
 	}
 
