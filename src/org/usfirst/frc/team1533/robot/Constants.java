@@ -18,23 +18,23 @@ public class Constants {
 
 
 		// Port which the steering motors are plugged into
-		public static final int FL_STEER = 7;
-		public static final int FR_STEER = 6;
-		public static final int BL_STEER = 9;
-		public static final int BR_STEER = 8;
+		public static final int FL_STEER = 11;
+		public static final int FR_STEER = 2;
+		public static final int BL_STEER = 12;
+		public static final int BR_STEER = 1;
 
 		// Port which the steering encoders are plugged into
-		public static final int FL_ENCODER = 1;
-		public static final int FR_ENCODER = 0;
-		public static final int BR_ENCODER = 2;
+		public static final int FL_ENCODER = 2;
+		public static final int FR_ENCODER = 1;
+		public static final int BR_ENCODER = 0;
 		public static final int BL_ENCODER = 3;
 
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Junior
-		public final static double FL_ENC_OFFSET = 116;
-		public final static double FR_ENC_OFFSET = 114;
-		public final static double BL_ENC_OFFSET = 226;
-		public final static double BR_ENC_OFFSET = 70;
+		public final static double FL_ENC_OFFSET = 67;
+		public final static double FR_ENC_OFFSET = 341.5;
+		public final static double BL_ENC_OFFSET = 354.2;
+		public final static double BR_ENC_OFFSET = 302;
 		
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;

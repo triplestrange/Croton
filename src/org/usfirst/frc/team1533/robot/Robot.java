@@ -15,9 +15,11 @@ public class Robot extends IterativeRobot {
 	public static Gyro gyro;
 	public static Joystick joy1;
 	public static Joystick joy2;
+	public static Joystick joy3;
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
+	public static Ramps ramps;
 	// Defines autonomous selection tools
 	Command LeftSwitchCommand, RightSwitchCommand, LeftScaleCommand, RightScaleCommand;
 	SendableChooser<Command> LeftSwitchChooser, RightSwitchChooser, LeftScaleChooser, RightScaleChooser;
@@ -27,9 +29,11 @@ public class Robot extends IterativeRobot {
 		gyro = new Gyro();
 		joy1 = new Joystick(0);
 		joy2 = new Joystick(1);
+		joy3 = new Joystick(2);
 		swerve = new SwerveDrive(joy1, gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
+		ramps = new Ramps();
 
 		// Starts USB Camera feed at set resolution, FPS, and Brightness
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -64,6 +68,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledPeriodic() {
+		swerve.smartDash();
 		Scheduler.getInstance().run();
 	}
 
@@ -114,5 +119,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		swerve.move();
+		elevator.testing(joy2);
+		ramps.testing(joy3);
+		
 	}
 }
