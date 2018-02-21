@@ -69,6 +69,7 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		swerve.smartDash();
+		elevator.smartdash();
 		Scheduler.getInstance().run();
 	}
 
@@ -76,6 +77,9 @@ public class Robot extends IterativeRobot {
 		gyro.reset();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		while (gameData.length() < 3 || gameData == null) {
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		}
 		if (gameData.length() > 0) {
 			
 			if (gameData.charAt(0) == 'L') {
