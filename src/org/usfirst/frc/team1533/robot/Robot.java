@@ -21,7 +21,7 @@ public class Robot extends IterativeRobot {
 	public static CubeMech cubemech;
 	public static Ramps ramps;
 	// Defines autonomous selection tools
-	Command LeftSwitchCommand, RightSwitchCommand, LeftScaleCommand, RightScaleCommand;
+	Command LSwitch, RSwitch, LScale, RScale;
 	SendableChooser<Command> LeftSwitchChooser, RightSwitchChooser, LeftScaleChooser, RightScaleChooser;
 
 	public void robotInit() {
@@ -83,30 +83,30 @@ public class Robot extends IterativeRobot {
 		if (gameData.length() > 0) {
 			
 			if (gameData.charAt(0) == 'L') {
-				LeftSwitchCommand = (Command) LeftSwitchChooser.getSelected();
-				LeftSwitchCommand.start();
+				LSwitch = (Command) LeftSwitchChooser.getSelected();
+				LSwitch.start();
 				if (gameData.charAt(1) == 'L') {
-					LeftScaleCommand = (Command) LeftScaleChooser.getSelected();
-					LeftScaleCommand.start();
+					LSwitch = (Command) LeftScaleChooser.getSelected();
+					LSwitch.start();
 				}
 				
 				else {
-					RightScaleCommand = (Command) RightScaleChooser.getSelected();
-					RightScaleCommand.start();
+					LScale = (Command) RightScaleChooser.getSelected();
+					LScale.start();
 				}
 			}
 			
 			else {
-				RightSwitchCommand = (Command) RightSwitchChooser.getSelected();
-				RightSwitchCommand.start();
+				RSwitch = (Command) RightSwitchChooser.getSelected();
+				RSwitch.start();
 				if (gameData.charAt(1) == 'L') {
-					LeftScaleCommand = (Command) LeftScaleChooser.getSelected();
-					LeftScaleCommand.start();
+					LSwitch = (Command) LeftScaleChooser.getSelected();
+					LSwitch.start();
 				}
 				
 				else {
-					RightScaleCommand = (Command) RightScaleChooser.getSelected();
-					RightScaleCommand.start();
+					LScale = (Command) RightScaleChooser.getSelected();
+					LScale.start();
 				}
 			}
 		}
