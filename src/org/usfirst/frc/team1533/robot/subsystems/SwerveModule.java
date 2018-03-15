@@ -1,23 +1,32 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
+import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.ProfileFollower;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *@author Duncan Wizardman Page
  */
-public class SwerveModule {
+public class SwerveModule implements PIDSource, PIDOutput{
     PIDController steerPID;
     WPI_TalonSRX driveController; //SpeedController used so this can be talon, victor, jaguar, CAN talon...
     WPI_VictorSPX steerController;
     public AbsoluteEncoder steerEncoder;
-    double positionX, positionY; //position of this wheel relative to the center of the robot
+    public double positionX; //position of this wheel relative to the center of the robot
+	public double positionY;
     //from the robot's perspective, +y is forward and +x is to the right
     boolean enabled = false;
+    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.00, this, this);
+    double distPerPulse = 100.0/187510*143/150;
+    double distZero;
     
     /**
      * @param driveController motor controller for drive motor
@@ -38,6 +47,9 @@ public class SwerveModule {
     	steerPID.setOutputRange(-Constants.SwerveDrive.SWERVE_STEER_CAP, Constants.SwerveDrive.SWERVE_STEER_CAP);
     	steerPID.setContinuous();
     	steerPID.disable();
+    	driveController.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    	driveController.setSensorPhase(true);
+    	resetEncoder();
     }
     
     public void enable() {
@@ -86,4 +98,38 @@ public class SwerveModule {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+
+	public void pidWrite(double output) {
+		// TODO Auto-generated method stub
+		driveController.set(ControlMode.PercentOutput, output);
+
+	}
+
+	public void setPIDSourceType(PIDSourceType pidSource) {}
+	public PIDSourceType getPIDSourceType() {return null;}
+	
+	public void resetEncoder() {
+		distZero += getDistance();
+	}
+	
+	public double getDistance() {
+		return driveController.getSelectedSensorPosition(0) * distPerPulse - distZero;
+	}
+	
+	public double pidGet() {
+		return getDistance();
+	}
+	public void runProfile(double angle, MotionProfile profile) {
+		resetEncoder();
+		angle = wrapAngle(angle-Math.PI/2);
+		double dist = Math.abs(angle-steerEncoder.getAngle());
+    	//if the setpoint is more than 90 degrees from the current position, flip everything
+    	if (dist > Math.PI/2 && dist < 3*Math.PI/2) {
+    		angle = wrapAngle(angle + Math.PI);
+    		profile.scalar *= -1;
+    	}
+		steerPID.setSetpoint(angle);
+		swerveMP.startProfile(profile);
+	}
+	
 }

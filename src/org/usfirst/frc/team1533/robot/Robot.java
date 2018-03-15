@@ -23,7 +23,8 @@ public class Robot extends IterativeRobot {
 	// Defines autonomous selection tools
 	Command LSwitch, RSwitch, LScale, RScale;
 	SendableChooser<Command> LeftSwitchChooser, RightSwitchChooser, LeftScaleChooser, RightScaleChooser;
-
+	Command autoCommand;
+	
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
 		gyro = new Gyro();
@@ -64,60 +65,67 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-		
+		if (autoCommand != null) autoCommand.cancel();
 	}
 
 	public void disabledPeriodic() {
 		swerve.smartDash();
-		elevator.smartdash();
+		for (int i = 0; i < 4; i++)
+			SmartDashboard.putNumber("swerve dist "+i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();
 	}
 
 	public void autonomousInit() {
 		gyro.reset();
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		while (gameData.length() < 3 || gameData == null) {
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
-		}
-		if (gameData.length() > 0) {
-			
-			if (gameData.charAt(0) == 'L') {
-				LSwitch = (Command) LeftSwitchChooser.getSelected();
-				LSwitch.start();
-				if (gameData.charAt(1) == 'L') {
-					LSwitch = (Command) LeftScaleChooser.getSelected();
-					LSwitch.start();
-				}
-				
-				else {
-					LScale = (Command) RightScaleChooser.getSelected();
-					LScale.start();
-				}
-			}
-			
-			else {
-				RSwitch = (Command) RightSwitchChooser.getSelected();
-				RSwitch.start();
-				if (gameData.charAt(1) == 'L') {
-					LSwitch = (Command) LeftScaleChooser.getSelected();
-					LSwitch.start();
-				}
-				
-				else {
-					LScale = (Command) RightScaleChooser.getSelected();
-					LScale.start();
-				}
-			}
-		}
+//		String gameData;
+//		gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		while (gameData.length() < 3 || gameData == null) {
+//			gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		}
+//		if (gameData.length() > 0) {
+//			
+//			if (gameData.charAt(0) == 'L') {
+//				LSwitch = (Command) LeftSwitchChooser.getSelected();
+//				LSwitch.start();
+//				if (gameData.charAt(1) == 'L') {
+//					LSwitch = (Command) LeftScaleChooser.getSelected();
+//					LSwitch.start();
+//				}
+//				
+//				else {
+//					LScale = (Command) RightScaleChooser.getSelected();
+//					LScale.start();
+//				}
+//			}
+//			
+//			else {
+//				RSwitch = (Command) RightSwitchChooser.getSelected();
+//				RSwitch.start();
+//				if (gameData.charAt(1) == 'L') {
+//					LSwitch = (Command) LeftScaleChooser.getSelected();
+//					LSwitch.start();
+//				}
+//				
+//				else {
+//					LScale = (Command) RightScaleChooser.getSelected();
+//					LScale.start();
+//				}
+//			}
+//		}
+		
+		autoCommand = new RRSwitchScaleAuto();
+		if (autoCommand != null) autoCommand.start();
 	}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		for (int i = 0; i < 4; i++)
+			SmartDashboard.putNumber("swerve dist "+i, swerve.modules[i].getDistance());
+		
 	}
 
 	public void teleopInit() {
-
+		
 	}
 
 	public void teleopPeriodic() {
@@ -125,6 +133,7 @@ public class Robot extends IterativeRobot {
 		swerve.move();
 		elevator.testing(joy2);
 		ramps.testing(joy3);
-		
+		elevator.smartdash();
+		cubemech.testing(joy2);
 	}
 }

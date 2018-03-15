@@ -1,17 +1,15 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
-import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PWMSpeedController;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1533.util.*;
 
 /**
  * @author Duncan Wizardman Page
@@ -23,7 +21,7 @@ public class SwerveDrive extends Subsystem {
 	public static boolean rotating, angle;
 	public SwerveModule[] modules;
 	boolean fieldOrientation = false;
-	Vector tankVector;
+	Vector2D tankVector2D;
 	Joystick joy1, joy2;
 	Gyro gyro;
 	//PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
@@ -91,12 +89,12 @@ public class SwerveDrive extends Subsystem {
 	 * @param heading offset in heading in radians (used for field oriented control)
 	 */
 	private void driveWithOrient(double translationX, double translationY, double rotation, boolean fieldOrientation) {
-		Vector correctOrientation = correctOrientationVector(translationX, translationY);
+		Vector2D correctOrientation = correctOrientationVector2D(translationX, translationY);
 		translationX = fieldOrientation ? correctOrientation.x: translationX;
 		translationY = fieldOrientation ? correctOrientation.y : translationY;
-		Vector[] vects = new Vector[modules.length];
-		Vector transVect = new Vector(translationX, translationY),
-				pivotVect = new Vector(pivotX, pivotY);
+		Vector2D[] vects = new Vector2D[modules.length];
+		Vector2D transVect = new Vector2D(translationX, translationY),
+				pivotVect = new Vector2D(pivotX, pivotY);
 		setTrans(transVect);
 
 
@@ -107,7 +105,7 @@ public class SwerveDrive extends Subsystem {
 
 		double maxDist = 0;
 		for (int i = 0; i < modules.length; i++) {
-			vects[i] = new Vector(modules[i].positionX, modules[i].positionY);
+			vects[i] = new Vector2D(modules[i].positionX, modules[i].positionY);
 			vects[i].subtract(pivotVect); //calculate module's position relative to pivot point
 			maxDist = Math.max(maxDist, vects[i].getMagnitude()); //find farthest distance from pivot
 		}
@@ -139,17 +137,17 @@ public class SwerveDrive extends Subsystem {
 		}
 	}
 	
-	public void setTrans(Vector vector){
-		this.tankVector = vector;
+	public void setTrans(Vector2D vector){
+		this.tankVector2D = vector;
 	}
-	public void setTransAngle(Vector vector){
+	public void setTransAngle(Vector2D vector){
 		this.transAngle = vector.getAngle();
 	}
 	public double getTransAngle(){
 		return transAngle;
 	}
-	public Vector getTrans(){
-		return tankVector;
+	public Vector2D getTrans(){
+		return tankVector2D;
 	}
 
 	/**
@@ -159,9 +157,9 @@ public class SwerveDrive extends Subsystem {
 	 * @param rotation relative rate of rotation around pivot point (-1 to 1) positive is clockwise
 	 */
 
-	private Vector correctOrientationVector(double x, double y) {
+	private Vector2D correctOrientationVector2D(double x, double y) {
 		double angle = Gyro.getAngle() * Math.PI / 180;
-		return new Vector (x*Math.cos(angle) - y*Math.sin(angle), x*Math.sin(angle) + y*Math.cos(angle));
+		return new Vector2D (x*Math.cos(angle) - y*Math.sin(angle), x*Math.sin(angle) + y*Math.cos(angle));
 	}
 	public void driveNormal(double translationX, double translationY, double rotation) {
 		driveWithOrient(translationX, translationY, rotation, false);
@@ -237,46 +235,7 @@ public class SwerveDrive extends Subsystem {
 		modules[3].set(45, 0);
 	}
 
-	/**
-	 * 2D Mathematical Vector
-	 */
-	class Vector {
-		double x = 0, y = 0;
-
-		public Vector(double x, double y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		public double getAngle() {
-			return Math.atan2(y, x);
-		}
-
-		public double getMagnitude() {
-			return Math.hypot(x, y);
-		}
-
-		public void scale(double scalar) {
-			x *= scalar;
-			y *= scalar;
-		}
-
-		public void add(Vector v) {
-			x += v.x;
-			y += v.y;
-		}
-
-		public void subtract(Vector v) {
-			x -= v.x;
-			y -= v.y;
-		}
-
-		public void makePerpendicular() {
-			double temp = x;
-			x = y;
-			y = -temp;
-		}
-	}
+	
 
 	@Override
 	protected void initDefaultCommand() {
