@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1533.robot;
 
 public class Constants {
-	//Acceleration and vCruise for the Swerve MOtion Profiles
+	//Acceleration and vCruise for the Swerve Motion Profiles
 	public static double acc = 50;
 	public static double vCruise = 60;
 	public static class SwerveDrive {

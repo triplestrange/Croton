@@ -18,7 +18,7 @@ public class CubeMech extends Subsystem {
 	WPI_VictorSPX IntakeMotorL = new WPI_VictorSPX(3);
 	Joystick joy2;
 	
-	public void testing(Joystick joy2) {
+	public void move(Joystick joy2) {
 		this.joy2 = joy2;
 		
 		if(joy2.getRawButton(3)) {

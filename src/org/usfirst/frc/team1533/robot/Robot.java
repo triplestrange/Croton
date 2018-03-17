@@ -15,14 +15,13 @@ public class Robot extends IterativeRobot {
 	public static Gyro gyro;
 	public static Joystick joy1;
 	public static Joystick joy2;
-	public static Joystick joy3;
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
 	public static Ramps ramps;
 	// Defines autonomous selection tools
-	Command LSwitch, RSwitch, LScale, RScale;
-	SendableChooser<Command> LeftSwitchChooser, RightSwitchChooser, LeftScaleChooser, RightScaleChooser;
+	Command LLSwitch, RRSwitch, LRScale, RLScale;
+	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
 	Command autoCommand;
 	
 	public void robotInit() {
@@ -30,7 +29,6 @@ public class Robot extends IterativeRobot {
 		gyro = new Gyro();
 		joy1 = new Joystick(0);
 		joy2 = new Joystick(1);
-		joy3 = new Joystick(2);
 		swerve = new SwerveDrive(joy1, gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
@@ -43,25 +41,21 @@ public class Robot extends IterativeRobot {
 		camera.setBrightness(15);
 
 		//Setup Autonomous command selection within SmartDashboard
-		LeftSwitchChooser = new SendableChooser<Command>();
-		LeftSwitchChooser.addDefault("Switch+RightScale", new LeftSwitch());
-		LeftSwitchChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", LeftSwitchChooser);
+		LLChooser = new SendableChooser<Command>();
+		LLChooser.addObject("1 + 1", new LLSwitchScaleAuto());
+		SmartDashboard.putData("Autonomous Chooser", LLChooser);
 		
-		RightSwitchChooser = new SendableChooser<Command>();
-		RightSwitchChooser.addDefault("Switch+RightScale", new RightSwitch());
-		RightSwitchChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", RightSwitchChooser);
+		RRChooser = new SendableChooser<Command>();
+		RRChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", RRChooser);
 		
-		LeftScaleChooser = new SendableChooser<Command>();
-		LeftScaleChooser.addDefault("Switch+RightScale", new LeftSwitch());
-		LeftScaleChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", LeftScaleChooser);
+		LRChooser = new SendableChooser<Command>();
+		LRChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", LRChooser);
 		
-		RightScaleChooser = new SendableChooser<Command>();
-		RightScaleChooser.addDefault("Switch+RightScale", new RightSwitch());
-		RightScaleChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", RightScaleChooser);
+		RLChooser = new SendableChooser<Command>();
+		RLChooser.addObject("Baseline", new Baseline());
+		SmartDashboard.putData("Autonomous Chooser", RLChooser);
 	}
 
 	public void disabledInit() {
@@ -71,7 +65,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		swerve.smartDash();
 		for (int i = 0; i < 4; i++)
-			SmartDashboard.putNumber("swerve dist "+i, swerve.modules[i].getDistance());
+			SmartDashboard.putNumber("swerve distance "+i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();
 	}
 
@@ -131,9 +125,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		swerve.move();
-		elevator.testing(joy2);
-		ramps.testing(joy3);
-		elevator.smartdash();
-		cubemech.testing(joy2);
+		elevator.move(joy2);
+		cubemech.move(joy2);
 	}
 }

@@ -32,7 +32,7 @@ public class Elevator extends Subsystem implements PIDOutput{
     public double vCruise = 30;
     
 
-    public void testing(Joystick joy2) {
+    public void move(Joystick joy2) {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	this.joy2 = joy2;
