@@ -4,12 +4,12 @@ import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SwerveRotate extends Command{
+public class TimedSwerveRotate extends Command{
 	double angle;
 	double speed;
 	double startTime;
 	
-	public SwerveRotate(double speed, double angle) {
+	public TimedSwerveRotate(double speed, double angle) {
 	this.angle = angle;
 	this.speed = speed;
 }

@@ -3,9 +3,9 @@ import org.usfirst.frc.team1533.robot.Constants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class LeftSwitch extends CommandGroup {
+public class AutoLSwitchMiddle extends CommandGroup {
 
-	public LeftSwitch() {
+	public AutoLSwitchMiddle() {
 		
 		addParallel(new ElevatorProfile(10));
 		addSequential(new ArcProfile(52.5, -40, Constants.vCruise, 0, 0, 36, Constants.acc));

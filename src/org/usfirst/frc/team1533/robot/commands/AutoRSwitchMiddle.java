@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /*
 Under development 
 */
-public class RightSwitch extends CommandGroup {
+public class AutoRSwitchMiddle extends CommandGroup {
 
-	public RightSwitch() {
+	public AutoRSwitchMiddle() {
 		
 		addParallel(new ElevatorProfile(10));
 		addSequential(new ArcProfile(52.5, 28, Constants.vCruise, 0, 0, 36, Constants.acc));

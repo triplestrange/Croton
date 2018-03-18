@@ -6,13 +6,13 @@ import edu.wpi.first.wpilibj.command.Command;
 @TODO Comments...
 */
 
-public class DriveDiagonalTime extends Command {
+public class TimedDriveDiagonalTime extends Command {
 	double duration;
 	double speed;
 	double startTime;
 	double angle;
 
-	public DriveDiagonalTime(double duration, double speed, double angle) {
+	public TimedDriveDiagonalTime(double duration, double speed, double angle) {
 		this.duration = duration;
 		this.speed = speed;
 		this.angle = angle;

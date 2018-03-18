@@ -30,19 +30,19 @@ public class Robot extends IterativeRobot {
 		
 		//Setup Autonomous command selection within SmartDashboard
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("1, LSwitch, Middle", new LeftSwitch());
+		LLChooser.addDefault("1, LSwitch, Middle", new AutoLSwitchMiddle());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
 		
 		LRChooser = new SendableChooser<Command>();
-		LRChooser.addDefault("1, LSwitch, Middle", new LeftSwitch());
+		LRChooser.addDefault("1, LSwitch, Middle", new AutoLSwitchMiddle());
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
-		RRChooser.addDefault("1, RSwitch, Middle", new RightSwitch());
+		RRChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
-		RLChooser.addDefault("1, RSwitch, Middle", new RightSwitch());
+		RLChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
 		SmartDashboard.putData("RLAutoChooser", RLChooser);	
 	}
 

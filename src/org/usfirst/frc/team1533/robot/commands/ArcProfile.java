@@ -1,14 +1,11 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import java.util.Arrays;
-
 import org.usfirst.frc.team1533.robot.MotionProfile;
 import org.usfirst.frc.team1533.robot.Robot;
 import org.usfirst.frc.team1533.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team1533.util.Vector2D;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArcProfile extends Command {
 	double distance;

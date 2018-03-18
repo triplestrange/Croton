@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj.command.Command;
 @TODO Comments... 
 */
 
-public class DriveForwardTime extends Command {
+public class TimedDriveForwardTime extends Command {
 	double duration;
 	double speed;
 	double startTime;
 	
-	public DriveForwardTime(double duration, double speed) {
+	public TimedDriveForwardTime(double duration, double speed) {
 		this.duration = duration;
 		this.speed = speed;
 	}

@@ -4,8 +4,8 @@ import org.usfirst.frc.team1533.robot.Constants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class RLSwitchScaleAuto extends CommandGroup{
-	public RLSwitchScaleAuto() {
+public class AutoLSwitchLeft extends CommandGroup{
+	public AutoLSwitchLeft() {
 		addParallel(new ElevatorProfile(15));
 		addSequential(new ArcProfile(130, 85, Constants.vCruise, 0, 0, 36, Constants.acc));
 		addSequential(new ArcProfile(48, 90, Constants.vCruise, 0, 36, 36, Constants.acc));

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
  * Tested on Svarog, functional
  */
 
-public class DriveCommand extends Command {
+public class TimedDriveCommand extends Command {
 
-	public DriveCommand() {
+	public TimedDriveCommand() {
 		//Reserves subsystem(s)
 		requires(Robot.swerve);
 	}
