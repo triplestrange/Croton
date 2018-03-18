@@ -12,7 +12,7 @@ public class RRSwitchScaleAuto extends CommandGroup{
 		addSequential(new ArcProfile(48, 90, 24, -75, 36, 0, Constants.acc));
 		addSequential(new ElevatorProfile(0));
 		//above is tested and good, below is untested
-		addSequential(new ArcProfile(12, 0, Constants.vCruise, 0, 0, 0, Constants.acc));
-		addSequential(new ArcProfile(24, 180, Constants.vCruise, 0, 0, 0, Constants.acc));
+		//addSequential(new ArcProfile(12, 0, Constants.vCruise, 0, 0, 0, Constants.acc));
+		//addSequential(new ArcProfile(24, 180, Constants.vCruise, 0, 0, 0, Constants.acc));
 	}
 }

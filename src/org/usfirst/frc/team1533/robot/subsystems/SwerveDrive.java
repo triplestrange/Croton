@@ -188,7 +188,7 @@ public class SwerveDrive extends Subsystem {
 		}else{
 			ypressed = false;
 		}
-		if(joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)){
+		if(joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)){
 			gyro.reset();
 		}
 		
@@ -202,6 +202,10 @@ public class SwerveDrive extends Subsystem {
 		double y = joy1.getY();
 		double z = joy1.getZ();
 		
+		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER))
+		speed = 30;
+			
+			
 		if((Math.abs(x) > .1 || Math.abs(y)>.1 || Math.abs(z) > .1) && !drivingField){		
 			if(Math.abs(z)<.1){
 				driveNormal((x*speed)/100, (-y*speed)/100, 0);//(-gyro.getAngle()+lastAngle)*.015);

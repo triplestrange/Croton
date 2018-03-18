@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1533.robot;
 import org.usfirst.frc.team1533.robot.commands.*;
 import org.usfirst.frc.team1533.robot.subsystems.*;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,11 +16,15 @@ public class Robot extends IterativeRobot {
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
-	public static Ramps ramps;
 	// Defines autonomous selection tools
-	Command LLSwitch, RRSwitch, LRScale, RLScale;
-	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
-	Command autoCommand;
+	Command LLCommand;
+	Command RRCommand;
+	Command LRCommand;
+	Command RLCommand;
+	SendableChooser<Command> LLChooser;
+	SendableChooser<Command> RRChooser;
+	SendableChooser<Command> LRChooser;
+	SendableChooser<Command> RLChooser;
 	
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
@@ -32,38 +34,35 @@ public class Robot extends IterativeRobot {
 		swerve = new SwerveDrive(joy1, gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
-		ramps = new Ramps();
-
-		// Starts USB Camera feed at set resolution, FPS, and Brightness
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(400, 240);
-		camera.setFPS(30);
-		camera.setBrightness(15);
-
+		
 		//Setup Autonomous command selection within SmartDashboard
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addObject("1 + 1", new LLSwitchScaleAuto());
-		SmartDashboard.putData("Autonomous Chooser", LLChooser);
-		
-		RRChooser = new SendableChooser<Command>();
-		RRChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", RRChooser);
+		LLChooser.addDefault("LEFT", new LeftSwitch());
+		SmartDashboard.putData("left", LLChooser);
 		
 		LRChooser = new SendableChooser<Command>();
-		LRChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", LRChooser);
-		
+		LRChooser.addDefault("LEFT", new LeftSwitch());
+		SmartDashboard.putData("left", LRChooser);
+
+		RRChooser = new SendableChooser<Command>();
+		RRChooser.addDefault("RIGHT", new RightSwitch());
+		SmartDashboard.putData("right", RRChooser);
+
 		RLChooser = new SendableChooser<Command>();
-		RLChooser.addObject("Baseline", new Baseline());
-		SmartDashboard.putData("Autonomous Chooser", RLChooser);
+		RLChooser.addDefault("RIGHT", new RightSwitch());
+		SmartDashboard.putData("right", RLChooser);	
 	}
 
 	public void disabledInit() {
-		if (autoCommand != null) autoCommand.cancel();
+		if (LLCommand != null) LLCommand.cancel();
+		if (RRCommand != null) RRCommand.cancel();
+		if (LRCommand != null) LRCommand.cancel();
+		if (RLCommand != null) RLCommand.cancel();
 	}
 
 	public void disabledPeriodic() {
 		swerve.smartDash();
+		elevator.smartdash();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve distance "+i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();
@@ -71,45 +70,36 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		gyro.reset();
-//		String gameData;
-//		gameData = DriverStation.getInstance().getGameSpecificMessage();
-//		while (gameData.length() < 3 || gameData == null) {
-//			gameData = DriverStation.getInstance().getGameSpecificMessage();
-//		}
-//		if (gameData.length() > 0) {
-//			
-//			if (gameData.charAt(0) == 'L') {
-//				LSwitch = (Command) LeftSwitchChooser.getSelected();
-//				LSwitch.start();
-//				if (gameData.charAt(1) == 'L') {
-//					LSwitch = (Command) LeftScaleChooser.getSelected();
-//					LSwitch.start();
-//				}
-//				
-//				else {
-//					LScale = (Command) RightScaleChooser.getSelected();
-//					LScale.start();
-//				}
-//			}
-//			
-//			else {
-//				RSwitch = (Command) RightSwitchChooser.getSelected();
-//				RSwitch.start();
-//				if (gameData.charAt(1) == 'L') {
-//					LSwitch = (Command) LeftScaleChooser.getSelected();
-//					LSwitch.start();
-//				}
-//				
-//				else {
-//					LScale = (Command) RightScaleChooser.getSelected();
-//					LScale.start();
-//				}
-//			}
-//		}
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		while (gameData.length() < 3 || gameData == null) {
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		}
+		LLCommand = (Command) LLChooser.getSelected();
+		LRCommand = (Command) LRChooser.getSelected();
+		RRCommand = (Command) RRChooser.getSelected();
+		RLCommand = (Command) RLChooser.getSelected();
 		
-		autoCommand = new RRSwitchScaleAuto();
-		if (autoCommand != null) autoCommand.start();
-	}
+			if (gameData.charAt(0) == 'L') {
+				if (gameData.charAt(1) == 'L') {
+					LLCommand.start();
+				}
+				
+				else {
+					LRCommand.start();
+				}
+			}
+			
+			else {
+				if (gameData.charAt(1) == 'R') {
+					RRCommand.start();
+				}
+				
+				else {
+					RLCommand.start();
+				}
+			}
+		}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();

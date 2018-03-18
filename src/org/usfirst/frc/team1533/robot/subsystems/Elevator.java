@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
+import org.usfirst.frc.team1533.robot.Constants;
 import org.usfirst.frc.team1533.robot.MotionProfile;
 import org.usfirst.frc.team1533.robot.ProfileFollower;
 
@@ -37,40 +38,34 @@ public class Elevator extends Subsystem implements PIDOutput{
         //setDefaultCommand(new MySpecialCommand());
     	this.joy2 = joy2;
     	double y = joy2.getY();
-    	double amp = Math.round(y*4)/4.0*.25;
-    	if(prevValue!=amp) {
-    		if(amp>0) {
-    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 40, encoder.getRate(), 0, vCruise*amp, acc));
-    		}
-    		else if(amp<0) {
-    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 0, encoder.getRate(), 0, -vCruise*amp, acc));
-    		}
-    		else {
-    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), encoder.getRate(), 0, vCruise, acc));
-    		}
-    		System.out.println("profile change " + System.currentTimeMillis());
-    	}
-    	prevValue=amp;
+//    	double amp = Math.round(y*4)/4.0*.25;
+//    	if(prevValue!=amp) {
+//    		if(amp>0) {
+//    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 40, encoder.getRate(), 0, vCruise*amp, acc));
+//    		}
+//    		else if(amp<0) {
+//    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 0, encoder.getRate(), 0, -vCruise*amp, acc));
+//    		}
+//    		else {
+//    			elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), encoder.getRate(), 0, vCruise, acc));
+//    		}
+//    		System.out.println("profile change " + System.currentTimeMillis());
+//    	}
+//    	prevValue=amp;
     	
-    	
-    		
-    	//cimShifter1.set(ControlMode.PercentOutput, joy2.getY()*(-1));
-    	//cimShifter2.set(ControlMode.PercentOutput, joy2.getY()*(-1));
-    	//cimShifter3.set(ControlMode.PercentOutput, joy2.getY()*(-1));
-    	
-    	if(joy2.getRawButtonPressed(11)) {
+    	if(joy2.getRawButtonPressed(4)) {
     		//creates a motion profile from the current position and velocity to 10 inches at rest
     		elevMP.startProfile(new MotionProfile(encoder.getDistance(), 36, encoder.getRate(), 0, vCruise, acc));
     	}
-    	if(joy2.getRawButtonPressed(10)) {
+    	if(joy2.getRawButtonPressed(2)) {
     		//creates a motion profile from the current position and velocity to 30 inches at rest
     		elevMP.startProfile(new MotionProfile(encoder.getDistance(), 0, encoder.getRate(), 0, vCruise, acc));
     	}
-    	if(joy2.getRawButtonPressed(6)) {
+    	if(joy2.getRawButtonPressed(3)) {
     		//creates a motion profile from the current position and velocity to 30 inches at rest
     		elevMP.startProfile(new MotionProfile(encoder.getDistance(), 15, encoder.getRate(), 0, vCruise, acc));
     	}
-    	if(joy2.getRawButton(7)) {
+    	if(joy2.getRawButton(1)) {
     		//resets the elevator so that the encoder is at 0 at the bottom
     		elevMP.cancel();
     		cimShifter1.set(ControlMode.PercentOutput, -.33);
@@ -78,14 +73,21 @@ public class Elevator extends Subsystem implements PIDOutput{
     		cimShifter3.set(ControlMode.PercentOutput, -.33);
     		encoder.reset();
     	}
+    	else if(joy2.getY()>0.01 || joy2.getY()<-0.01) {
+    		elevMP.cancel();
+        	cimShifter1.set(ControlMode.PercentOutput, joy2.getY()*(-1));
+        	cimShifter2.set(ControlMode.PercentOutput, joy2.getY()*(-1));
+        	cimShifter3.set(ControlMode.PercentOutput, joy2.getY()*(-1));
+        	elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
+    	}
     	else {
     		elevMP.update();
     	}
     }
     
-    private double rdist(double v1, double v2) {
-		return Math.abs(v1-v2)*(v1+v2)/(2*acc);
-	}
+//    private double rdist(double v1, double v2) {
+//		return Math.abs(v1-v2)*(v1+v2)/(2*acc);
+//	}
     
     public Elevator() {
     	this.encoder.setDistancePerPulse(-(1.0/256)*(8.0/60)*(1.432*Math.PI));
