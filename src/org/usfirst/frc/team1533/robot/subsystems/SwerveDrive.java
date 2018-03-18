@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
+import org.usfirst.frc.team1533.robot.subsystems.Elevator;
+import org.usfirst.frc.team1533.util.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -9,7 +11,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team1533.util.*;
 
 /**
  * @author Duncan Wizardman Page
@@ -17,6 +18,7 @@ import org.usfirst.frc.team1533.util.*;
 public class SwerveDrive extends Subsystem {
 	public double pivotX, pivotY, lastpressed, transAngle, pivotspeed;
 	public static double angleRotation, startangle;
+	public double speed, turnRate, initialspeed, initialturnRate;
 	boolean lockwheels, drivingField, ypressed;
 	public static boolean rotating, angle;
 	public SwerveModule[] modules;
@@ -181,31 +183,33 @@ public class SwerveDrive extends Subsystem {
 
 
 	public void move(){
+		double x = (joy1.getX());
+		double y = (joy1.getY());
+		double z = (joy1.getZ());
+		
+		if (joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)) gyro.reset();
+		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)) initialturnRate = 20; initialspeed = 20;
+		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) initialturnRate = 100; initialspeed = 100;
+		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
+		
+		if(Elevator.encoder.getDistance() > 21) {
+			speed = initialspeed*((1/(Elevator.encoder.getDistance())-20)*3);
+			turnRate = initialturnRate*((1/(Elevator.encoder.getDistance())-20)*3);
+		}
+		else {
+			speed = 70;
+			turnRate = 70;
+		}
+		
 		if(joy1.getRawButton(Constants.Controller.RIGHT_TRIGGER)){	
 			if (!ypressed) drivingField = !drivingField;
 			ypressed = true;
 			SmartDashboard.putBoolean("field?", drivingField);
-		}else{
+		}
+		else{
 			ypressed = false;
 		}
-		if(joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)){
-			gyro.reset();
-		}
-		
-		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
-		double speed = 100;
-//		if (joy1.getRawButton(Constants.RIGHT_TRIGGER)) speed = 100;
-		double turnRate = 80;
-		
-		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) turnRate = 100;
-		double x = joy1.getX();
-		double y = joy1.getY();
-		double z = joy1.getZ();
-		
-		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER))
-		speed = 30;
-			
-			
+
 		if((Math.abs(x) > .1 || Math.abs(y)>.1 || Math.abs(z) > .1) && !drivingField){		
 			if(Math.abs(z)<.1){
 				driveNormal((x*speed)/100, (-y*speed)/100, 0);//(-gyro.getAngle()+lastAngle)*.015);
@@ -239,18 +243,15 @@ public class SwerveDrive extends Subsystem {
 		modules[3].set(45, 0);
 	}
 
-	
-
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-
 	}
+
 	public void smartDash(){
 		SmartDashboard.putNumber("FL", modules[0].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("FR", modules[1].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BL", modules[2].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BR", modules[3].getAngle()*360/(2*Math.PI));
-
 	}
 }

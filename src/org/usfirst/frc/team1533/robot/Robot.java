@@ -11,20 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 public class Robot extends IterativeRobot {
 	// Defines all of the Robot subsytems
 	public static Gyro gyro;
-	public static Joystick joy1;
-	public static Joystick joy2;
+	public static Joystick joy1, joy2;
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
 	// Defines autonomous selection tools
-	Command LLCommand;
-	Command RRCommand;
-	Command LRCommand;
-	Command RLCommand;
-	SendableChooser<Command> LLChooser;
-	SendableChooser<Command> RRChooser;
-	SendableChooser<Command> LRChooser;
-	SendableChooser<Command> RLChooser;
+	Command LLCommand, RRCommand, LRCommand, RLCommand;
+	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
 	
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
@@ -37,20 +30,20 @@ public class Robot extends IterativeRobot {
 		
 		//Setup Autonomous command selection within SmartDashboard
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("LEFT", new LeftSwitch());
-		SmartDashboard.putData("left", LLChooser);
+		LLChooser.addDefault("1, LSwitch, Middle", new LeftSwitch());
+		SmartDashboard.putData("LLAutoChooser", LLChooser);
 		
 		LRChooser = new SendableChooser<Command>();
-		LRChooser.addDefault("LEFT", new LeftSwitch());
-		SmartDashboard.putData("left", LRChooser);
+		LRChooser.addDefault("1, LSwitch, Middle", new LeftSwitch());
+		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
-		RRChooser.addDefault("RIGHT", new RightSwitch());
-		SmartDashboard.putData("right", RRChooser);
+		RRChooser.addDefault("1, RSwitch, Middle", new RightSwitch());
+		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
-		RLChooser.addDefault("RIGHT", new RightSwitch());
-		SmartDashboard.putData("right", RLChooser);	
+		RLChooser.addDefault("1, RSwitch, Middle", new RightSwitch());
+		SmartDashboard.putData("RLAutoChooser", RLChooser);	
 	}
 
 	public void disabledInit() {

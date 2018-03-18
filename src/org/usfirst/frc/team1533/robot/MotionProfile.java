@@ -14,7 +14,7 @@ public class MotionProfile {
 	double dRise, dFall, dCruise;
 	public double scalar = 1;
 	
-	public MotionProfile(double startPos,double  endPos,double startV,double endV,double vCruise,double acc) {
+	public MotionProfile(double startPos, double endPos, double startV, double endV, double vCruise, double acc) {
 		 this.acc = Math.abs(acc);
 		 this.startPos=startPos;
 		 this.endPos=endPos;
