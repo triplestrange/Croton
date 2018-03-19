@@ -1,14 +1,10 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import java.util.Arrays;
-
 import org.usfirst.frc.team1533.robot.MotionProfile;
 import org.usfirst.frc.team1533.robot.Robot;
-import org.usfirst.frc.team1533.robot.subsystems.SwerveDrive;
-import org.usfirst.frc.team1533.util.Vector2D;
+import org.usfirst.frc.team1533.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorProfile extends Command {
 	double endPoint;
@@ -21,7 +17,7 @@ public class ElevatorProfile extends Command {
 	}
 	
 	public void initialize() {
-		MotionProfile elevMP = new MotionProfile(Robot.elevator.encoder.getDistance(), endPoint, Robot.elevator.encoder.getRate(), 0, Robot.elevator.vCruise, Robot.elevator.acc);
+		MotionProfile elevMP = new MotionProfile(Elevator.encoder.getDistance(), endPoint, Elevator.encoder.getRate(), 0, Robot.elevator.vCruise, Robot.elevator.acc);
 		Robot.elevator.elevMP.startProfile(elevMP);
 	}
 	

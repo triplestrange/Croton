@@ -11,9 +11,11 @@ public class Intake extends Command {
 
 	double duration;
 	double startTime;
+	double speed;
 
-    public Intake(double duration) {
+    public Intake(double duration, double speed) {
     	this.duration = duration;
+    	this.speed = speed;
     	
     }
 
@@ -22,8 +24,8 @@ public class Intake extends Command {
     }
 
     public void execute() {
-    	CubeMech.IntakeMotorR.set(1);
-    	CubeMech.IntakeMotorL.set(-1);
+    	CubeMech.IntakeMotorR.set(speed);
+    	CubeMech.IntakeMotorL.set(-speed);
     }
 
     protected boolean isFinished() {

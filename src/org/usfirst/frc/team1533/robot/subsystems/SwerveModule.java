@@ -3,14 +3,11 @@ package org.usfirst.frc.team1533.robot.subsystems;
 import org.usfirst.frc.team1533.robot.Constants;
 import org.usfirst.frc.team1533.robot.MotionProfile;
 import org.usfirst.frc.team1533.robot.ProfileFollower;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *@author Duncan Wizardman Page

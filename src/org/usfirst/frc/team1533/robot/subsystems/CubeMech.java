@@ -1,10 +1,7 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
-import org.usfirst.frc.team1533.robot.MotionProfile;
 import org.usfirst.frc.team1533.robot.Constants;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
