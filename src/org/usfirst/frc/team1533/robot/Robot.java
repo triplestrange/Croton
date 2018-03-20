@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 
 		RRChooser = new SendableChooser<Command>();
 		RRChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
+		RRChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();

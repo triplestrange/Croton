@@ -187,19 +187,23 @@ public class SwerveDrive extends Subsystem {
 		double y = (joy1.getY());
 		double z = (joy1.getZ());
 		
+		speed = 60;
+		turnRate = 60;
+		
+		
 		if (joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)) gyro.reset();
-		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)) initialturnRate = 20; initialspeed = 20;
-		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) initialturnRate = 100; initialspeed = 100;
+		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)) turnRate = 20; speed = 20;
+		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) turnRate = 100; speed = 100;
 		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
 		
-		if(Elevator.encoder.getDistance() > 21) {
-			speed = initialspeed*((1/(Elevator.encoder.getDistance())-20)*3);
-			turnRate = initialturnRate*((1/(Elevator.encoder.getDistance())-20)*3);
-		}
-		else {
-			speed = 70;
-			turnRate = 70;
-		}
+//		if(Elevator.encoder.getDistance() > 21) {
+//			speed = initialspeed*((1/(Elevator.encoder.getDistance())-20)*3);
+//			turnRate = initialturnRate*((1/(Elevator.encoder.getDistance())-20)*3);
+//		}
+//		else {
+//			speed = 70;
+//			turnRate = 70;
+//		}
 		
 		if(joy1.getRawButton(Constants.Controller.RIGHT_TRIGGER)){	
 			if (!ypressed) drivingField = !drivingField;

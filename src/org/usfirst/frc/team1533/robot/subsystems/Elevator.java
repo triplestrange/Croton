@@ -58,20 +58,25 @@ public class Elevator extends Subsystem implements PIDOutput {
 			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 36, encoder.getRate(), 0, vCruise, acc));
 		}
 		else if (y > 0.01 || y < -0.01) {
-			if (encoder.getDistance() > 37|| encoder.getDistance() < 3) {
-				elevMP.cancel();
-				cimShifter1.set(ControlMode.PercentOutput, y * (-0.1));
-				cimShifter2.set(ControlMode.PercentOutput, y * (-0.1));
-				cimShifter3.set(ControlMode.PercentOutput, y * (-0.1));
-				elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
-			}
-			else {
-				elevMP.cancel();
-				cimShifter1.set(ControlMode.PercentOutput, y * (-0.8));
-				cimShifter2.set(ControlMode.PercentOutput, y * (-0.8));
-				cimShifter3.set(ControlMode.PercentOutput, y * (-0.8));
-				elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));	
-			}
+			elevMP.cancel();
+//			if (encoder.getDistance() > 37 || encoder.getDistance() < 3) {
+//				cimShifter1.configOpenloopRamp(0.25, 500);
+//				cimShifter2.configOpenloopRamp(0.25, 5);
+//				cimShifter3.configOpenloopRamp(0.25, 5);
+//				cimShifter1.set(ControlMode.PercentOutput, y * (-0.1));
+//				cimShifter2.set(ControlMode.PercentOutput, y * (-0.1));
+//				cimShifter3.set(ControlMode.PercentOutput, y * (-0.1));
+//			}
+//			else {
+
+				cimShifter1.configOpenloopRamp(0.25, 5);
+				cimShifter2.configOpenloopRamp(0.25, 5);
+				cimShifter3.configOpenloopRamp(0.25, 5);
+				cimShifter1.set(ControlMode.PercentOutput, y * (-1));
+				cimShifter2.set(ControlMode.PercentOutput, y * (-1));
+				cimShifter3.set(ControlMode.PercentOutput, y * (-1));
+			//}
+			elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
 		}
 		else {
 			elevMP.update();
