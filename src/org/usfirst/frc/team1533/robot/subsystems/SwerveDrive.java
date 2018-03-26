@@ -190,8 +190,8 @@ public class SwerveDrive extends Subsystem {
 		turnRate = 60;
 		
 		
-		if (joy1.getRawButton(Constants.Controller.LEFT_BUMPER)) gyro.reset();
-		if (joy1.getRawButton(Constants.Controller.B)) lockWheels();
+		if (joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)) gyro.reset();
+		if (joy1.getRawButton(Constants.Controller.A)) lockWheels();
 		
 		if (joy1.getRawButton(Constants.Controller.LEFT_TRIGGER)) {
 			turnRate = 20;
@@ -211,7 +211,7 @@ public class SwerveDrive extends Subsystem {
 //			turnRate = 70;
 //		}
 		
-		if(joy1.getRawButton(Constants.Controller.RIGHT_BUMPER)){	
+		if(joy1.getRawButton(Constants.Controller.LEFT_BUMPER)){	
 			if (!ypressed) drivingField = !drivingField;
 			ypressed = true;
 			SmartDashboard.putBoolean("field?", drivingField);

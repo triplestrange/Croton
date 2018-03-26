@@ -1,21 +1,17 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import org.usfirst.frc.team1533.robot.subsystems.CubeMech;
-
+import org.usfirst.frc.team1533.robot.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Intake extends Command {
+public class TimeControl extends Command {
 
-	double duration;
+	double duration = Constants.AutonDelay;
 	double startTime;
-	double speed;
 
-	public Intake(double duration, double speed) {
-		this.duration = duration;
-		this.speed = speed;
+	public TimeControl() {
 
 	}
 
@@ -24,8 +20,6 @@ public class Intake extends Command {
 	}
 
 	public void execute() {
-		CubeMech.IntakeMotorR.set(speed);
-		CubeMech.IntakeMotorL.set(-speed);
 	}
 
 	protected boolean isFinished() {
@@ -33,7 +27,5 @@ public class Intake extends Command {
 	}
 
 	public void end() {
-		CubeMech.IntakeMotorR.set(0);
-		CubeMech.IntakeMotorL.set(0);
 	}
 }

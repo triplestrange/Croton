@@ -1,11 +1,13 @@
 package org.usfirst.frc.team1533.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Constants {
-	//Acceleration and vCruise for the Swerve Motion Profiles
+	//Acceleration and vCruise for the S werve Motion Profiles
 	public static double acc = 50;
 	public static double vCruise = 60;
+	public static double AutonDelay = SmartDashboard.getNumber("AutonDelay", 0);
 	public static class SwerveDrive {
-
 		// These numbers control the Swerve PID
 		public static final double SWERVE_STEER_P = 2;
 		public static final double SWERVE_STEER_I = 0;
@@ -17,7 +19,6 @@ public class Constants {
 		public static final int FR_DRIVE = 2;
 		public static final int FL_DRIVE = 3;
 		public static final int BL_DRIVE = 4;
-
 
 		// Port which the steering motors are plugged into
 		public static final int FL_STEER = 11;
@@ -33,16 +34,16 @@ public class Constants {
 
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Croton
-//		public final static double FL_ENC_OFFSET = 67;
-//		public final static double FR_ENC_OFFSET = 341.5;
-//		public final static double BL_ENC_OFFSET = 354.2;
-//		public final static double BR_ENC_OFFSET = 302;
+		public final static double FL_ENC_OFFSET = 67+351;
+		public final static double FR_ENC_OFFSET = 341.5;
+		public final static double BL_ENC_OFFSET = 354.2+330+156;
+		public final static double BR_ENC_OFFSET = 302;
 		
 		//Encoder offsets for Milo
-		public final static double FL_ENC_OFFSET = 71;
-		public final static double FR_ENC_OFFSET = 324;
-		public final static double BL_ENC_OFFSET = 188.5;
-		public final static double BR_ENC_OFFSET = 295;
+//		public final static double FL_ENC_OFFSET = 71;
+//		public final static double FR_ENC_OFFSET = 324;
+//		public final static double BL_ENC_OFFSET = 188.5;
+//		public final static double BR_ENC_OFFSET = 295;
 		
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;
@@ -50,9 +51,6 @@ public class Constants {
 		//Cad Wheel Base information for Croton
 		public static final double WHEEL_BASE_WIDTH = 21.25;
 		public static final double WHEEL_BASE_LENGTH = 26.25;
-		
-	
-
 	}
 
 	public static class Controller {
@@ -92,4 +90,23 @@ public class Constants {
 		public final static int RIGHT_TRIGGER2 = 8;
 	}
 
+	public static class Elevator {
+		public static final int cimShifter1 = 8;
+		public static final int cimShifter2 = 9;
+		public static final int cimShifter3 = 10;
+		
+		public static final int MagEncoderPort1 = 0;
+		public static final int MagEncoderPort2 = 1;
+	}
+	public static class CubeMech {
+		
+	}
+	public static class Pneumatics {
+		public static final int solenoid1Port1 = 0;
+		public static final int solenoid1Port2 = 1;
+		public static final int solenoid2Port1 = 2;
+		public static final int solenoid2Port2 = 3;
+		public static final int solenoid3Port1 = 6;
+		public static final int solenoid3Port2 = 7;
+	}
 }
