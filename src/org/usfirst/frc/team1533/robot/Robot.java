@@ -1,4 +1,5 @@
 package org.usfirst.frc.team1533.robot;
+
 import org.usfirst.frc.team1533.robot.commands.*;
 import org.usfirst.frc.team1533.robot.subsystems.*;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,10 +16,11 @@ public class Robot extends IterativeRobot {
 	public static SwerveDrive swerve;
 	public static Elevator elevator;
 	public static CubeMech cubemech;
+	public static Pneumatics pneumatics;
 	// Defines autonomous selection tools
 	Command LLCommand, RRCommand, LRCommand, RLCommand;
 	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
-	
+
 	public void robotInit() {
 		// Initializes Swerve Drive, Joysticks, Gyro, Elevator, and Cube Mechanism.
 		gyro = new Gyro();
@@ -27,38 +29,58 @@ public class Robot extends IterativeRobot {
 		swerve = new SwerveDrive(joy1, gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
-		
-		//Setup Autonomous command selection within SmartDashboard
+		pneumatics = new Pneumatics();
+
+		// set pneumatics to starting configuration
+		pneumatics.defaultvalue();
+
+		// Setup Autonomous command selection within SmartDashboard
+
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("1, LSwitch, Middle", new AutoLSwitchMiddle());
+		LLChooser.addDefault("1,LSwitch,Middle", new AutoLSwitchMiddle());
+		LLChooser.addObject("1,LSwitch,Left", new AutoLSwitchLeft());
+		LLChooser.addObject("Baseline if Left", new AutoBaselineLeft());
+		LLChooser.addObject("Baseline if Right", new AutoBaselineRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
-		
+
 		LRChooser = new SendableChooser<Command>();
 		LRChooser.addDefault("1, LSwitch, Middle", new AutoLSwitchMiddle());
+		LRChooser.addObject("1, LSwitch, Left", new AutoRSwitchLeft());
+		LRChooser.addObject("Baseline if Left", new AutoBaselineLeft());
+		LRChooser.addObject("Baseline if Right", new AutoBaselineRight());
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
 		RRChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
 		RRChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
+		RRChooser.addObject("Baseline if Right", new AutoBaselineRight());
+		RRChooser.addObject("Baseline if Left", new AutoBaselineLeft());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
 		RLChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
-		SmartDashboard.putData("RLAutoChooser", RLChooser);	
+		RLChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
+		RLChooser.addObject("Baseline if Right", new AutoBaselineRight());
+		RLChooser.addObject("Baseline if Left", new AutoBaselineLeft());
+		SmartDashboard.putData("RLAutoChooser", RLChooser);
 	}
 
 	public void disabledInit() {
-		if (LLCommand != null) LLCommand.cancel();
-		if (RRCommand != null) RRCommand.cancel();
-		if (LRCommand != null) LRCommand.cancel();
-		if (RLCommand != null) RLCommand.cancel();
+		if (LLCommand != null)
+			LLCommand.cancel();
+		if (RRCommand != null)
+			RRCommand.cancel();
+		if (LRCommand != null)
+			LRCommand.cancel();
+		if (RLCommand != null)
+			RLCommand.cancel();
 	}
 
 	public void disabledPeriodic() {
 		swerve.smartDash();
 		elevator.smartdash();
 		for (int i = 0; i < 4; i++)
-			SmartDashboard.putNumber("swerve distance "+i, swerve.modules[i].getDistance());
+			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();
 	}
 
@@ -73,37 +95,44 @@ public class Robot extends IterativeRobot {
 		LRCommand = (Command) LRChooser.getSelected();
 		RRCommand = (Command) RRChooser.getSelected();
 		RLCommand = (Command) RLChooser.getSelected();
-		
-			if (gameData.charAt(0) == 'L') {
-				if (gameData.charAt(1) == 'L') {
-					LLCommand.start();
-				}
-				
-				else {
-					LRCommand.start();
-				}
+
+		if (gameData.charAt(0) == 'L') {
+			if (gameData.charAt(1) == 'L') {
+				LLCommand.start();
 			}
-			
+
 			else {
-				if (gameData.charAt(1) == 'R') {
-					RRCommand.start();
-				}
-				
-				else {
-					RLCommand.start();
-				}
+				LRCommand.start();
 			}
 		}
+
+		else {
+			if (gameData.charAt(1) == 'R') {
+				RRCommand.start();
+			}
+
+			else {
+				RLCommand.start();
+			}
+		}
+	}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		for (int i = 0; i < 4; i++)
-			SmartDashboard.putNumber("swerve dist "+i, swerve.modules[i].getDistance());
-		
+			SmartDashboard.putNumber("swerve dist " + i, swerve.modules[i].getDistance());
+
 	}
 
 	public void teleopInit() {
-		
+		if (LLCommand != null)
+			LLCommand.cancel();
+		if (RRCommand != null)
+			RRCommand.cancel();
+		if (LRCommand != null)
+			LRCommand.cancel();
+		if (RLCommand != null)
+			RLCommand.cancel();
 	}
 
 	public void teleopPeriodic() {
@@ -111,5 +140,6 @@ public class Robot extends IterativeRobot {
 		swerve.move();
 		elevator.move(joy2);
 		cubemech.move(joy2);
+		pneumatics.move(joy1);
 	}
 }

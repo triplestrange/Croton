@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLSwitchMiddle extends CommandGroup {
 
 	public AutoLSwitchMiddle() {
-		
-		addParallel(new ElevatorProfile(10));
+
+		addSequential(new TimeControl());
+		addSequential(new ElevatorProfile(10));
 		addSequential(new ArcProfile(52.5, -40, Constants.vCruise, 0, 0, 36, Constants.acc));
 		addParallel(new ElevatorProfile(15));
 		addSequential(new ArcProfile(70, -35, Constants.vCruise, 0, 36, 0, Constants.acc));
