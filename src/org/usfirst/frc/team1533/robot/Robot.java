@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("1,LSwitch,Left", new AutoLSwitchLeft());
 		LLChooser.addObject("Baseline if Left", new AutoBaselineLeft());
 		LLChooser.addObject("Baseline if Right", new AutoBaselineRight());
+		LLChooser.addObject("1,Scale,Left", new AutoLScaleLeft());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
 
 		LRChooser = new SendableChooser<Command>();
