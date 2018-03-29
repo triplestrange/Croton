@@ -37,32 +37,39 @@ public class Robot extends IterativeRobot {
 		// Setup Autonomous command selection within SmartDashboard
 
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("1,LSwitch,Middle", new AutoLSwitchMiddle());
-		LLChooser.addObject("1,LSwitch,Left", new AutoLSwitchLeft());
-		LLChooser.addObject("Baseline if Left", new AutoBaselineLeft());
-		LLChooser.addObject("Baseline if Right", new AutoBaselineRight());
-		LLChooser.addObject("1,Scale,Left", new AutoLScaleLeft());
+		LLChooser.addDefault("1/LSwitch/Middle", new AutoLSwitchMiddle());
+		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
+		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
+		LLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
+		LLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
 
 		LRChooser = new SendableChooser<Command>();
-		LRChooser.addDefault("1, LSwitch, Middle", new AutoLSwitchMiddle());
-		LRChooser.addObject("1, LSwitch, Left", new AutoRSwitchLeft());
-		LRChooser.addObject("Baseline if Left", new AutoBaselineLeft());
-		LRChooser.addObject("Baseline if Right", new AutoBaselineRight());
+		LRChooser.addDefault("1/LSwitch/Middle", new AutoLSwitchMiddle());
+		LRChooser.addObject("1/LSwitch/Left", new AutoRSwitchLeft());
+		LRChooser.addObject("1/Scale/Right", new AutoRScaleRight());
+		LRChooser.addObject("1/Scale/Left", new AutoRScaleLeft());
+		LRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
+		LRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
-		RRChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
-		RRChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
-		RRChooser.addObject("Baseline if Right", new AutoBaselineRight());
-		RRChooser.addObject("Baseline if Left", new AutoBaselineLeft());
+		RRChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
+		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
+		RRChooser.addObject("1/Scale/Right", new AutoRScaleRight());
+		RRChooser.addObject("1/Scale/Left", new AutoRScaleLeft());
+		RRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
+		RRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
 		RLChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
 		RLChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
-		RLChooser.addObject("Baseline if Right", new AutoBaselineRight());
-		RLChooser.addObject("Baseline if Left", new AutoBaselineLeft());
+		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
+		RLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
+		RLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("RLAutoChooser", RLChooser);
 	}
 
