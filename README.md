@@ -1,3 +1,2 @@
-# (r0t0|/|
-
-**Stable branch for testing permissions / approval flow, obviously all code is currently in a state of quantum flux as to its stability.**
+# Croton 2018 Robot Code:
+# Please make sure you do not commit any changes if you are just viewing the code.
