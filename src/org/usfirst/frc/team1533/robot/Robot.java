@@ -44,12 +44,12 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		LLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
-
+           
 		LRChooser = new SendableChooser<Command>();
 		LRChooser.addDefault("1/LSwitch/Middle", new AutoLSwitchMiddle());
-		LRChooser.addObject("1/LSwitch/Left", new AutoRSwitchLeft());
-		LRChooser.addObject("1/Scale/Right", new AutoRScaleRight());
-		LRChooser.addObject("1/Scale/Left", new AutoRScaleLeft());
+		LRChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
+		LRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
+		LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		LRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		LRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
@@ -57,15 +57,15 @@ public class Robot extends IterativeRobot {
 		RRChooser = new SendableChooser<Command>();
 		RRChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
 		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
-		RRChooser.addObject("1/Scale/Right", new AutoRScaleRight());
-		RRChooser.addObject("1/Scale/Left", new AutoRScaleLeft());
+		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
+		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		RRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		RRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
-		RLChooser.addDefault("1, RSwitch, Middle", new AutoRSwitchMiddle());
-		RLChooser.addObject("1, RSwitch, Right", new AutoRSwitchRight());
+		RLChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
+		RLChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
 		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
 		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
 		RLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());

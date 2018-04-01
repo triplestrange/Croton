@@ -51,6 +51,11 @@ public class Elevator extends Subsystem implements PIDOutput {
 			encoder.reset();
 		}
 		
+		if (joy2.getRawButtonPressed(1)) {
+			// creates a motion profile from the current position and velocity to 36 inches at rest
+			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 8.88, encoder.getRate(), 0, vCruise, acc));
+		}
+		
 		if (joy2.getRawButtonPressed(2)) {
 			// creates a motion profile from the current position and velocity to 0 inches at rest
 			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 0, encoder.getRate(), 0, vCruise, acc));
@@ -68,7 +73,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 		
 		else if (y > 0.1 || y < -0.1) {
 			elevMP.cancel();
-			if (joy2.getRawButton(Constants.Controller.X)) {
+			if (joy2.getRawButton(Constants.Controller.RIGHT_TRIGGER)) {
 				if (y < 0.1) {
 					cimShifter1.set(ControlMode.PercentOutput, y * (-1));
 					cimShifter2.set(ControlMode.PercentOutput, y * (-1));
@@ -81,13 +86,13 @@ public class Elevator extends Subsystem implements PIDOutput {
 			}
 			else {
 				if (y < 0.1) {
+					cimShifter1.set(ControlMode.PercentOutput, y * (-0.6));
+					cimShifter2.set(ControlMode.PercentOutput, y * (-0.6));
+					cimShifter3.set(ControlMode.PercentOutput, y * (-0.6));
+				} else {
 					cimShifter1.set(ControlMode.PercentOutput, y * (-0.4));
 					cimShifter2.set(ControlMode.PercentOutput, y * (-0.4));
 					cimShifter3.set(ControlMode.PercentOutput, y * (-0.4));
-				} else {
-					cimShifter1.set(ControlMode.PercentOutput, y * (-0.25));
-					cimShifter2.set(ControlMode.PercentOutput, y * (-0.25));
-					cimShifter3.set(ControlMode.PercentOutput, y * (-0.25));
 				}
 			}
 			elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
