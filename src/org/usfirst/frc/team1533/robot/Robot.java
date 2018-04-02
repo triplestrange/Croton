@@ -58,6 +58,7 @@ public class Robot extends IterativeRobot {
 		RRChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
 		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
 		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
+		RRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
 		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		RRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		RRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
