@@ -21,7 +21,7 @@ public class SwerveModule implements PIDSource, PIDOutput{
 	public double positionY;
     //from the robot's perspective, +y is forward and +x is to the right
     boolean enabled = false;
-    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.00, this, this);
+    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.02, this, this);
     double distPerPulse = 100.0/187510*143/150;
     double distZero;
     

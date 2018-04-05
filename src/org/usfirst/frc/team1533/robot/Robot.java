@@ -41,6 +41,8 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
 		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
 		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
+		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left2());
+		LLChooser.addObject("0/Baseline", new AutoBaselineStraight());
 		LLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		LLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
@@ -128,6 +130,8 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		swerve.smartDash();
+		elevator.smartdash();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve dist " + i, swerve.modules[i].getDistance());
 
@@ -146,6 +150,8 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		swerve.smartDash();
+		elevator.smartdash();
 		swerve.move();
 		elevator.move(joy2);
 		cubemech.move(joy2);

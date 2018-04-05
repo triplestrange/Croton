@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
+import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.ProfileFollower;
 import org.usfirst.frc.team1533.robot.subsystems.Elevator;
 import org.usfirst.frc.team1533.util.*;
 
@@ -9,13 +11,16 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Duncan Wizardman Page
  */
-public class SwerveDrive extends Subsystem {
+public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput {
 	public double pivotX, pivotY, lastpressed, transAngle, pivotspeed;
 	public static double angleRotation, startangle;
 	public double speed, turnRate, initialspeed, initialturnRate;
@@ -29,7 +34,8 @@ public class SwerveDrive extends Subsystem {
 	//PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
 	PIDController pid;
 	double lastAngle;
-
+    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.02, this, this);
+    double mpangle, gyroangle;
 	/**
 	 * Custom constructor for current robot.
 	 */
@@ -263,5 +269,38 @@ public class SwerveDrive extends Subsystem {
 		SmartDashboard.putNumber("FR", modules[1].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BL", modules[2].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BR", modules[3].getAngle()*360/(2*Math.PI));
+	}
+
+	@Override
+	public void pidWrite(double output) {
+		// TODO Auto-generated method stub
+		driveNormal(output*Math.sin(mpangle*Math.PI/180), output*Math.cos(mpangle*Math.PI/180), ((gyroangle-gyro.getAngle())*0.01));
+	}
+	public void runProfile(double angle, MotionProfile profile) {
+		modules[0].resetEncoder();
+		modules[1].resetEncoder();
+		modules[2].resetEncoder();
+		modules[3].resetEncoder();
+		swerveMP.startProfile(profile);
+		mpangle = angle;
+		gyroangle = gyro.getAngle();
+	}
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double pidGet() {
+		// TODO Auto-generated method stub
+		return ((Math.abs(modules[0].getDistance()) + Math.abs(modules[1].getDistance()) +
+				 Math.abs(modules[2].getDistance()) + Math.abs(modules[3].getDistance()))/4);
 	}
 }

@@ -40,10 +40,10 @@ public class Constants {
 //		public final static double BR_ENC_OFFSET = 302;
 		
 		//Encoder offsets for Milo
-		public final static double FL_ENC_OFFSET = 71 + 0.5;
-		public final static double FR_ENC_OFFSET = 324 + 0.5 - 2;
-		public final static double BL_ENC_OFFSET = 188.5;
-		public final static double BR_ENC_OFFSET = 295 + 358;
+		public final static double FL_ENC_OFFSET = 73;
+		public final static double FR_ENC_OFFSET = 324;
+		public final static double BL_ENC_OFFSET = 190;
+		public final static double BR_ENC_OFFSET = 294.5;
 		
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;
