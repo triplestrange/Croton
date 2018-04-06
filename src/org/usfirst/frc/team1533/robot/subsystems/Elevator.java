@@ -63,7 +63,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 		
 		if (joy2.getRawButtonPressed(3)) {
 			// creates a motion profile from the current position and velocity to 15 inches at rest
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 15, encoder.getRate(), 0, vCruise, acc));
+			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 21, encoder.getRate(), 0, vCruise, acc));
 		}
 		
 		if (joy2.getRawButtonPressed(4)) {

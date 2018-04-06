@@ -6,11 +6,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLSwitchMiddle extends CommandGroup {
 
 	public AutoLSwitchMiddle() {
-		addSequential(new TimeControl());
-//		addSequential(new ElevatorProfile(10));
-		addSequential(new ArcProfile(52.5, -40, Constants.vCruise+40, 0, 0, 36, Constants.acc));
-//		addParallel(new ElevatorProfile(15));
-		addSequential(new ArcProfile(70, -20, Constants.vCruise+40, 0, 36, 0, Constants.acc));
-//		addSequential(new Intake(0.5, 1));
+		addParallel(new ElevatorProfile(10));
+		addSequential(new ArcProfile(52.5, -40, Constants.vCruise, 0, 0, 0, Constants.acc));
+		addParallel(new ElevatorProfile(15));
+		//going fast for some reason?
+		addSequential(new ArcProfile(73, -20, Constants.vCruise, 0, 0, 0, Constants.acc));
+		//////////////////////////////////////////////////////////////////////////////////
+		addParallel(new Intake(0.5, 1));
+		addSequential(new StraightProfile(27, 160, Constants.vCruise, 0, 0, Constants.acc));
+		addParallel(new ElevatorProfile(0));
+		addSequential(new ArcProfile(0, 0, Constants.vCruise, 62.5, 0, 0, Constants.acc));
+		addParallel(new StraightProfile(24, 0, Constants.vCruise, 0, 0, Constants.acc));
+		addSequential(new Intake(2, -1));
+		addSequential(new StraightProfile(36, 180, Constants.vCruise, 0, 0, Constants.acc));
+		addSequential(new ArcProfile(0, 0, Constants.vCruise, -60, 0, 0, Constants.acc));
+		addParallel(new ElevatorProfile(20));
+		addSequential(new StraightProfile(27, 0, Constants.vCruise, 0, 0, Constants.acc));
+		addParallel(new Intake(0.5, 1));
+		addSequential(new StraightProfile(60, -90, Constants.vCruise, 0, 0, Constants.acc));
 	}
 }

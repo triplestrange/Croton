@@ -37,29 +37,28 @@ public class Robot extends IterativeRobot {
 		// Setup Autonomous command selection within SmartDashboard
 
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("1/LSwitch/Middle", new AutoLSwitchMiddle());
+		LLChooser.addDefault("2/LSwitch/Middle", new AutoLSwitchMiddle());
 		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
-		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
 		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
-		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left2());
-		LLChooser.addObject("0/Baseline", new AutoBaselineStraight());
-		LLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
-		LLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
+		LLChooser.addObject("Baseline", new AutoBaselineStraight());
+		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
 		LRChooser.addDefault("1/LSwitch/Middle", new AutoLSwitchMiddle());
 		LRChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
-		LRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
-		LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
-		LRChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
-		LRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
+		LRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
+		//LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
+		LLChooser.addObject("Baseline", new AutoBaselineStraight());
+		LRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+		LRChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
-		RRChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
+		RRChooser.addDefault("2/RSwitch/Middle", new AutoRSwitchMiddle());
 		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
-		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
 		RRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
 		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		RRChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
@@ -69,7 +68,7 @@ public class Robot extends IterativeRobot {
 		RLChooser = new SendableChooser<Command>();
 		RLChooser.addDefault("1/RSwitch/Middle", new AutoRSwitchMiddle());
 		RLChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
-		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+		RLChooser.addObject("1/LScale/Left", new AutoLScale2Left());
 		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
 		RLChooser.addObject("0/Baseline/Left", new AutoBaselineLeft());
 		RLChooser.addObject("0/Baseline/Right", new AutoBaselineRight());
