@@ -24,6 +24,7 @@ public class Pneumatics extends Subsystem {
 		if (joy1.getRawButtonPressed(Constants.Controller.X)) {
 			Solenoid1.set(DoubleSolenoid.Value.kReverse);
 			Solenoid2.set(DoubleSolenoid.Value.kForward);
+			Solenoid3.set(DoubleSolenoid.Value.kReverse);
 		}
 		if (joy1.getRawButtonPressed(Constants.Controller.Y)) {
 			Solenoid3.set(DoubleSolenoid.Value.kReverse);

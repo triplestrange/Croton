@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLScale2Left extends CommandGroup {
 	public AutoLScale2Left() {
 		addParallel(new ElevatorProfile(10));
-		addSequential(new StraightProfile(250, -90, Constants.vCruise+40, 0, 0, Constants.acc));
+		addSequential(new StraightProfile(230, -90, Constants.vCruise+40, 0, 0, Constants.acc));
 		addSequential(new ElevatorProfile(38));
 		addSequential(new ArcProfile(30, 0, Constants.vCruise, -45, 0, 0, Constants.acc));
 		addSequential(new Intake(1, 1));
