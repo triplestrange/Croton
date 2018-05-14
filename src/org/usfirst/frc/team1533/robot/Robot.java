@@ -95,6 +95,10 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		swerve.smartDash();
 		elevator.smartdash();
+		joy2.getRawButtonPressed(1);
+		joy2.getRawButtonPressed(2);
+		joy2.getRawButtonPressed(3);
+		joy2.getRawButtonPressed(4);
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();

@@ -86,9 +86,9 @@ public class Elevator extends Subsystem implements PIDOutput {
 			}
 			else {
 				if (y < 0.1) {
-					cimShifter1.set(ControlMode.PercentOutput, y * (-0.6));
-					cimShifter2.set(ControlMode.PercentOutput, y * (-0.6));
-					cimShifter3.set(ControlMode.PercentOutput, y * (-0.6));
+					cimShifter1.set(ControlMode.PercentOutput, y * (-0.5));
+					cimShifter2.set(ControlMode.PercentOutput, y * (-0.5));
+					cimShifter3.set(ControlMode.PercentOutput, y * (-0.5));
 				} else {
 					cimShifter1.set(ControlMode.PercentOutput, y * (-0.4));
 					cimShifter2.set(ControlMode.PercentOutput, y * (-0.4));

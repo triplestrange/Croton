@@ -23,6 +23,10 @@ public class CubeMech extends Subsystem {
 			IntakeMotorR.set(.66);
 			IntakeMotorL.set(-.66);
 		}
+		else if(joy2.getRawButton(Constants.Controller.LEFT_TRIGGER)) {
+			IntakeMotorR.set(0.35);
+			IntakeMotorL.set(-.35);
+		}
 		else if(joy2.getRawButton(Constants.Controller.LEFT_BUMPER)) {
 			IntakeMotorR.set(-1);
 			IntakeMotorL.set(1);
@@ -32,7 +36,7 @@ public class CubeMech extends Subsystem {
 			IntakeMotorL.set(0);
 		}
 	}
-	
+
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
