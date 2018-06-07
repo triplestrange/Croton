@@ -17,6 +17,7 @@ public class Robot extends IterativeRobot {
 	public static Elevator elevator;
 	public static CubeMech cubemech;
 	public static Pneumatics pneumatics;
+	public static PathTracking path;
 	// Defines autonomous selection tools
 	Command LLCommand, RRCommand, LRCommand, RLCommand;
 	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 		elevator = new Elevator();
 		cubemech = new CubeMech();
 		pneumatics = new Pneumatics();
+		path = new PathTracking(swerve);
 
 		// set pneumatics to starting configuration
 		pneumatics.defaultvalue();
@@ -82,6 +84,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
+//		path.close();
 		if (LLCommand != null)
 			LLCommand.cancel();
 		if (RRCommand != null)
@@ -173,5 +176,6 @@ public class Robot extends IterativeRobot {
 		elevator.move(joy2);
 		cubemech.move(joy2);
 		pneumatics.move(joy1);
+		path.update();
 	}
 }

@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * @author Duncan Wizardman Page
  */
-public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput {
+public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput{
 	public double pivotX, pivotY, lastpressed, transAngle, pivotspeed;
 	public static double angleRotation, startangle;
 	public double speed, turnRate, initialspeed, initialturnRate;
@@ -32,7 +32,7 @@ public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput {
 	Joystick joy1, joy2;
 	Gyro gyro;
 	//PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
-	PIDController pid;
+//	PIDController pid;
 	double lastAngle;
     public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.02, this, this);
     double mpangle, gyroangle;
