@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.ProfileFollower;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -21,7 +21,7 @@ public class SwerveModule implements PIDSource, PIDOutput {
 	public double positionY;
 	// from the robot's perspective, +y is forward and +x is to the right
 	boolean enabled = false;
-	public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.02, this, this);
+	public ProfileFollower swerveMP = new ProfileFollower(.008, 0.0, 0.15, 0, 0.02, this, this);
 	double distPerPulse = 100.0 / 187510 * 143 / 150;
 	double distZero;
 
@@ -134,7 +134,7 @@ public class SwerveModule implements PIDSource, PIDOutput {
 		return getDistance();
 	}
 
-	public void runProfile(double angle, MotionProfile profile) {
+	public void runProfile(double angle, TrapezoidProfile profile) {
 		resetEncoder();
 		angle = wrapAngle(angle - Math.PI / 2);
 		double dist = Math.abs(angle - steerEncoder.getAngle());

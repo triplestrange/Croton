@@ -19,16 +19,22 @@ public class PathTracking{
 	
 	public PathTracking(SwerveDrive modules) {
 		this.swerveDrive = modules;
-		 try {
-			writer = new PrintWriter("robot.txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		drive = new double[swerveDrive.modules.length];
+//		 try {
+//			//writer = new PrintWriter("robot.txt");
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void reset() {
-		
+		for(int i=0; i<swerveDrive.modules.length; i++) {
+			drive[i] = 0;
+			swerveDrive.modules[i].resetEncoder();
+			currentX = 0;
+			currentY = 0;
+		}
 	}
 	
 	public void update() {
@@ -37,16 +43,20 @@ public class PathTracking{
 		for(int i=0; i<swerveDrive.modules.length; i++) {
 			double dEncoder = swerveDrive.modules[i].getDistance();
 			double sEncoder = swerveDrive.modules[i].getAngle();
-			double dx = dEncoder*Math.sin(sEncoder) - currentY*(Math.toRadians(gyro.getAngle() - currentZ));
-			double dy = dEncoder*Math.cos(sEncoder) + currentX*(Math.toRadians(gyro.getAngle() - currentZ));
+			double dx = -(dEncoder-drive[i])*Math.sin(sEncoder) - swerveDrive.modules[i].positionY*(Math.toRadians(gyro.getAngle() - currentZ));
+			double dy = (dEncoder-drive[i])*Math.cos(sEncoder) + swerveDrive.modules[i].positionX*(Math.toRadians(gyro.getAngle() - currentZ));
 			xAvg = xAvg + dx/swerveDrive.modules.length;
-			yAvg = yAvg + dy/swerveDrive.modules.length; 
+			yAvg = yAvg + dy/swerveDrive.modules.length;
+			drive[i] = dEncoder;
 		}
-		currentX = currentX + xAvg;
-		currentY = currentY + yAvg;
-		writer.println(currentX+' '+currentY);
+		currentZ = gyro.getAngle();
+		currentX = currentX + xAvg*Math.cos(Math.toRadians(currentZ))+yAvg*Math.sin(Math.toRadians(currentZ));
+		currentY = currentY - xAvg*Math.sin(Math.toRadians(currentZ))+yAvg*Math.cos(Math.toRadians(currentZ));
+		
+		//writer.println(currentX+" "+currentY);
 		SmartDashboard.putNumber("CurrentX", currentX);
 		SmartDashboard.putNumber("CurrentY", currentY);
+		SmartDashboard.putNumber("CurrentZ", currentZ);
 	}
 //	public void close() {
 //		writer.close();

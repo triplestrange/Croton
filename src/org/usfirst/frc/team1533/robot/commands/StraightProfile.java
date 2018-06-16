@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.Robot;
 import org.usfirst.frc.team1533.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team1533.util.Vector2D;
@@ -14,7 +14,7 @@ public class StraightProfile extends Command {
 	double startV;
 	double endV;
 	double acc;
-	MotionProfile moduleProfile;
+	TrapezoidProfile moduleProfile;
 	
 	public StraightProfile(double distance, double direction, double speed, double startV, double endV, double acc) {
 		this.direction = direction;
@@ -23,7 +23,7 @@ public class StraightProfile extends Command {
 		this.startV = startV;
 		this.endV = endV;
 		this.acc = acc;
-		moduleProfile = new MotionProfile(0.0, distance, startV, endV, speed, acc);
+		moduleProfile = new TrapezoidProfile(0.0, distance, startV, endV, speed, acc);
 		requires(Robot.swerve);
 	}
 	

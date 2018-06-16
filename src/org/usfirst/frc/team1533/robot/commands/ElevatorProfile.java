@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.Robot;
 import org.usfirst.frc.team1533.robot.subsystems.Elevator;
 
@@ -17,7 +17,7 @@ public class ElevatorProfile extends Command {
 	}
 	
 	public void initialize() {
-		MotionProfile elevMP = new MotionProfile(Elevator.encoder.getDistance(), endPoint, Elevator.encoder.getRate(), 0, Robot.elevator.vCruise, Robot.elevator.acc);
+		TrapezoidProfile elevMP = new TrapezoidProfile(Elevator.encoder.getDistance(), endPoint, Elevator.encoder.getRate(), 0, Robot.elevator.vCruise, Robot.elevator.acc);
 		Robot.elevator.elevMP.startProfile(elevMP);
 	}
 	

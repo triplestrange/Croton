@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ProfileFollower {
-	double kF, kP, kI, kD;
+	double kV, kA, kP, kI, kD;
 	PIDSource encoder;
 	PIDOutput output;
 	double startTime;
@@ -14,8 +14,9 @@ public class ProfileFollower {
 	double prevError;
 	double prevTime;
 	
-	public ProfileFollower(double kF, double kP, double kI, double kD, PIDSource encoder, PIDOutput output) {
-		this.kF = kF;
+	public ProfileFollower(double kV, double kA, double kP, double kI, double kD, PIDSource encoder, PIDOutput output) {
+		this.kV = kV;
+		this.kA = kA;
 		this.kP = kP;
 		this.kI = kI;
 		this.kD = kD;
@@ -39,11 +40,12 @@ public class ProfileFollower {
 		double t = System.currentTimeMillis()/1000.0-startTime;
 		double p = currentProfile.currentP(t);
 		double v = currentProfile.currentV(t);
+		double a = currentProfile.currentA(t);
 		error = p-encoder.pidGet();
 		if(t==prevTime) {
 			prevTime=t-.001;
 		}
-		output.pidWrite(kF*v+kP*(error)+kD*(error-prevError)/(t-prevTime));
+		output.pidWrite(kA*a+kV*v+kP*(error)+kD*(error-prevError)/(t-prevTime));
 		prevError = error;
 		prevTime = t;
 		

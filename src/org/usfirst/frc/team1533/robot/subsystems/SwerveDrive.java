@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.ProfileFollower;
 import org.usfirst.frc.team1533.robot.subsystems.Elevator;
 import org.usfirst.frc.team1533.util.*;
@@ -34,7 +34,7 @@ public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput{
 	//PWMSpeedController flDrive, frDrive, blDrive, brDrive, flsteer, frsteer, blsteer, brsteer;
 //	PIDController pid;
 	double lastAngle;
-    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.15, 0, 0.02, this, this);
+    public ProfileFollower swerveMP = new ProfileFollower(.008, 0.0, 0.15, 0, 0.02, this, this);
     double mpangle, gyroangle;
 	/**
 	 * Custom constructor for current robot.
@@ -276,7 +276,7 @@ public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput{
 		// TODO Auto-generated method stub
 		driveNormal(output*Math.sin(mpangle*Math.PI/180), output*Math.cos(mpangle*Math.PI/180), ((gyroangle-gyro.getAngle())*0.01));
 	}
-	public void runProfile(double angle, MotionProfile profile) {
+	public void runProfile(double angle, TrapezoidProfile profile) {
 		modules[0].resetEncoder();
 		modules[1].resetEncoder();
 		modules[2].resetEncoder();

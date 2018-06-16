@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1533.robot.commands;
 
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.Robot;
 import org.usfirst.frc.team1533.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team1533.util.Vector2D;
@@ -15,7 +15,7 @@ public class ArcProfile extends Command {
 	double startV;
 	double endV;
 	double acc;
-	MotionProfile[] moduleProfile = new MotionProfile[Robot.swerve.modules.length];
+	TrapezoidProfile[] moduleProfile = new TrapezoidProfile[Robot.swerve.modules.length];
 	double[] moduleAngle = new double[Robot.swerve.modules.length];
 	double turnScalar = 215.2/212.2;
 	
@@ -37,7 +37,7 @@ public class ArcProfile extends Command {
 			maxDist = Math.max(maxDist, moduleVect[i].getMagnitude());
 		}
 		for(int i = 0; i < swerve.modules.length; i++) {
-			moduleProfile[i] = new MotionProfile(0.0, maxDist, startV, endV, speed, acc);
+			moduleProfile[i] = new TrapezoidProfile(0.0, maxDist, startV, endV, speed, acc);
 			moduleProfile[i].setScalar(moduleVect[i].getMagnitude()/maxDist);
 			moduleAngle[i] = moduleVect[i].getAngle();		
 		}

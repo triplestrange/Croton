@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Waypoint;
 
 public class Robot extends IterativeRobot {
 	// Defines all of the Robot subsytems
@@ -18,6 +21,7 @@ public class Robot extends IterativeRobot {
 	public static CubeMech cubemech;
 	public static Pneumatics pneumatics;
 	public static PathTracking path;
+	public static PathFollower follower;
 	// Defines autonomous selection tools
 	Command LLCommand, RRCommand, LRCommand, RLCommand;
 	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
@@ -32,6 +36,8 @@ public class Robot extends IterativeRobot {
 		cubemech = new CubeMech();
 		pneumatics = new Pneumatics();
 		path = new PathTracking(swerve);
+		follower = new PathFollower();
+		path.reset();
 
 		// set pneumatics to starting configuration
 		pneumatics.defaultvalue();
@@ -85,6 +91,7 @@ public class Robot extends IterativeRobot {
 
 	public void disabledInit() {
 //		path.close();
+		follower.cancel();
 		if (LLCommand != null)
 			LLCommand.cancel();
 		if (RRCommand != null)
@@ -105,53 +112,78 @@ public class Robot extends IterativeRobot {
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
 		Scheduler.getInstance().run();
+		path.update();
 	}
 
+	Trajectory traj;
+	{
+		long time = System.nanoTime();
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 72.0, 50.0, 100.0);
+        Waypoint[] points = new Waypoint[] {
+//				Far scale testing                
+//        		new Waypoint(0, 0, Pathfinder.d2r(90)),
+//              new Waypoint(0, 200, Pathfinder.d2r(90)),
+//              new Waypoint(-20, 220, Pathfinder.d2r(180)),
+//              new Waypoint(-212, 220, Pathfinder.d2r(180))
+//        		1323 testing
+        		new Waypoint(0, 0, Pathfinder.d2r(270)),
+        		new Waypoint(-28, -72, Pathfinder.d2r(180)),
+        		new Waypoint(-56, -48, Pathfinder.d2r(90))
+        };
+        traj = Pathfinder.generate(points, config);
+        SmartDashboard.putNumber("generation time", (System.nanoTime()-time)/1e9);
+	}
 	public void autonomousInit() {
 		gyro.reset();
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		while (gameData.length() < 3 || gameData == null) {
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
-		}
-		LLCommand = (Command) LLChooser.getSelected();
-		LRCommand = (Command) LRChooser.getSelected();
-		RRCommand = (Command) RRChooser.getSelected();
-		RLCommand = (Command) RLChooser.getSelected();
-
-		if (gameData.charAt(0) == 'L') {
-			if (gameData.charAt(1) == 'L') {
-				if (LLCommand != null) {
-					LLCommand.start();
-				}
-			}
-
-			else {
-				if (LRCommand != null) {
-					LRCommand.start();
-				}
-			}
-		}
-
-		else {
-			if (gameData.charAt(1) == 'R') {
-				if (RRCommand != null) {
-					RRCommand.start();
-				}
-			}
-
-			else {
-				if (RLCommand != null) {
-					RLCommand.start();
-				}
-			}
-		}
+        path.reset();
+		
+		
+        follower.startTrajectory(traj);
+//		String gameData;
+//		gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		while (gameData.length() < 3 || gameData == null) {
+//			gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		}
+//		LLCommand = (Command) LLChooser.getSelected();
+//		LRCommand = (Command) LRChooser.getSelected();
+//		RRCommand = (Command) RRChooser.getSelected();
+//		RLCommand = (Command) RLChooser.getSelected();
+//
+//		if (gameData.charAt(0) == 'L') {
+//			if (gameData.charAt(1) == 'L') {
+//				if (LLCommand != null) {
+//					LLCommand.start();
+//				}
+//			}
+//
+//			else {
+//				if (LRCommand != null) {
+//					LRCommand.start();
+//				}
+//			}
+//		}
+//
+//		else {
+//			if (gameData.charAt(1) == 'R') {
+//				if (RRCommand != null) {
+//					RRCommand.start();
+//				}
+//			}
+//
+//			else {
+//				if (RLCommand != null) {
+//					RLCommand.start();
+//				}
+//			}
+//		}
 	}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		swerve.smartDash();
 		elevator.smartdash();
+		path.update();
+		follower.update();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve dist " + i, swerve.modules[i].getDistance());
 
@@ -168,7 +200,10 @@ public class Robot extends IterativeRobot {
 			RLCommand.cancel();
 	}
 
+	long time = System.nanoTime();
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("dt", (System.nanoTime()-time)/1e9);
+		time = System.nanoTime();
 		Scheduler.getInstance().run();
 		swerve.smartDash();
 		elevator.smartdash();
@@ -176,6 +211,8 @@ public class Robot extends IterativeRobot {
 		elevator.move(joy2);
 		cubemech.move(joy2);
 		pneumatics.move(joy1);
+		for (int i = 0; i < 4; i++)
+			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
 		path.update();
 	}
 }

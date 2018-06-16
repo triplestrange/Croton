@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
 import org.usfirst.frc.team1533.robot.Constants;
-import org.usfirst.frc.team1533.robot.MotionProfile;
+import org.usfirst.frc.team1533.robot.TrapezoidProfile;
 import org.usfirst.frc.team1533.robot.ProfileFollower;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -23,7 +23,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 	WPI_VictorSPX cimShifter3 = new WPI_VictorSPX(Constants.Elevator.cimShifter3);
 	public static Encoder encoder = new Encoder(Constants.Elevator.MagEncoderPort1, Constants.Elevator.MagEncoderPort2);
 	Joystick joy2;
-	public ProfileFollower elevMP = new ProfileFollower(0.033, 0.5, 0, 0.025, encoder, this);
+	public ProfileFollower elevMP = new ProfileFollower(0.033, 0.0, 0.5, 0, 0.025, encoder, this);
 	double prevValue;
 	public double acc = 60;
 	public double vCruise = 30;
@@ -53,22 +53,22 @@ public class Elevator extends Subsystem implements PIDOutput {
 		
 		if (joy2.getRawButtonPressed(1)) {
 			// creates a motion profile from the current position and velocity to 36 inches at rest
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 8.88, encoder.getRate(), 0, vCruise, acc));
+			elevMP.startProfile(new TrapezoidProfile(encoder.getDistance(), 8.88, encoder.getRate(), 0, vCruise, acc));
 		}
 		
 		if (joy2.getRawButtonPressed(2)) {
 			// creates a motion profile from the current position and velocity to 0 inches at rest
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 0, encoder.getRate(), 0, vCruise, acc));
+			elevMP.startProfile(new TrapezoidProfile(encoder.getDistance(), 0, encoder.getRate(), 0, vCruise, acc));
 		}
 		
 		if (joy2.getRawButtonPressed(3)) {
 			// creates a motion profile from the current position and velocity to 15 inches at rest
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 21, encoder.getRate(), 0, vCruise, acc));
+			elevMP.startProfile(new TrapezoidProfile(encoder.getDistance(), 21, encoder.getRate(), 0, vCruise, acc));
 		}
 		
 		if (joy2.getRawButtonPressed(4)) {
 			// creates a motion profile from the current position and velocity to 36 inches at rest
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), 36, encoder.getRate(), 0, vCruise, acc));
+			elevMP.startProfile(new TrapezoidProfile(encoder.getDistance(), 36, encoder.getRate(), 0, vCruise, acc));
 		}
 		
 		else if (y > 0.1 || y < -0.1) {
@@ -95,7 +95,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 					cimShifter3.set(ControlMode.PercentOutput, y * (-0.4));
 				}
 			}
-			elevMP.startProfile(new MotionProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
+			elevMP.startProfile(new TrapezoidProfile(encoder.getDistance(), encoder.getDistance(), 0, 0, vCruise, acc));
 		}
 		else {
 			elevMP.update();
