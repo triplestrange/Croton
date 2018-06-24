@@ -22,7 +22,6 @@ public class ElevatorProfile extends Command {
 	}
 	
 	public void execute() {
-		Robot.elevator.elevMP.update();
 	}
 	
 	@Override

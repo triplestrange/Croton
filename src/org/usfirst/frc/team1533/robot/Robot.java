@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("Baseline", new AutoBaselineStraight());
 		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		LLChooser.addObject("Path - 1/LScale/Right", new PathAutoLScaleRight());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot {
 		RRChooser.addObject("Baseline", new AutoBaselineStraight());
 		RRChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		RRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+		RRChooser.addObject("Path - 1/RScale/Right", new PathAutoRScaleRight());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
@@ -115,75 +117,71 @@ public class Robot extends IterativeRobot {
 		path.update();
 	}
 
-	Trajectory traj;
-	{
-		long time = System.nanoTime();
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 72.0, 50.0, 100.0);
-        Waypoint[] points = new Waypoint[] {
-//				Far scale testing                
-//        		new Waypoint(0, 0, Pathfinder.d2r(90)),
-//              new Waypoint(0, 200, Pathfinder.d2r(90)),
-//              new Waypoint(-20, 220, Pathfinder.d2r(180)),
-//              new Waypoint(-212, 220, Pathfinder.d2r(180))
-//        		1323 testing
-        		new Waypoint(0, 0, Pathfinder.d2r(270)),
-        		new Waypoint(-28, -72, Pathfinder.d2r(180)),
-        		new Waypoint(-56, -48, Pathfinder.d2r(90))
-        };
-        traj = Pathfinder.generate(points, config);
-        SmartDashboard.putNumber("generation time", (System.nanoTime()-time)/1e9);
-	}
+//	Trajectory traj;
+//	{
+//		long time = System.nanoTime();
+//		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 72.0, 50.0, 100.0);
+//        Waypoint[] points = new Waypoint[] {
+////        		1323 testing
+////        		new Waypoint(0, 0, Pathfinder.d2r(270)),
+////        		new Waypoint(-28, -72, Pathfinder.d2r(180)),
+////        		new Waypoint(-56, -48, Pathfinder.d2r(90))
+//        };
+//        traj = Pathfinder.generate(points, config);
+//        SmartDashboard.putNumber("generation time", (System.nanoTime()-time)/1e9);
+//	}
 	public void autonomousInit() {
 		gyro.reset();
         path.reset();
+		elevator.reset();
 		
-		
-        follower.startTrajectory(traj);
-//		String gameData;
-//		gameData = DriverStation.getInstance().getGameSpecificMessage();
-//		while (gameData.length() < 3 || gameData == null) {
-//			gameData = DriverStation.getInstance().getGameSpecificMessage();
-//		}
-//		LLCommand = (Command) LLChooser.getSelected();
-//		LRCommand = (Command) LRChooser.getSelected();
-//		RRCommand = (Command) RRChooser.getSelected();
-//		RLCommand = (Command) RLChooser.getSelected();
-//
-//		if (gameData.charAt(0) == 'L') {
-//			if (gameData.charAt(1) == 'L') {
-//				if (LLCommand != null) {
-//					LLCommand.start();
-//				}
-//			}
-//
-//			else {
-//				if (LRCommand != null) {
-//					LRCommand.start();
-//				}
-//			}
-//		}
-//
-//		else {
-//			if (gameData.charAt(1) == 'R') {
-//				if (RRCommand != null) {
-//					RRCommand.start();
-//				}
-//			}
-//
-//			else {
-//				if (RLCommand != null) {
-//					RLCommand.start();
-//				}
-//			}
-//		}
+        //follower.startTrajectory(traj);
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		while (gameData.length() < 3 || gameData == null) {
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		}
+		LLCommand = (Command) LLChooser.getSelected();
+		LRCommand = (Command) LRChooser.getSelected();
+		RRCommand = (Command) RRChooser.getSelected();
+		RLCommand = (Command) RLChooser.getSelected();
+
+		if (gameData.charAt(0) == 'L') {
+			if (gameData.charAt(1) == 'L') {
+				if (LLCommand != null) {
+					LLCommand.start();
+				}
+			}
+
+			else {
+				if (LRCommand != null) {
+					LRCommand.start();
+				}
+			}
+		}
+
+		else {
+			if (gameData.charAt(1) == 'R') {
+				if (RRCommand != null) {
+					RRCommand.start();
+				}
+			}
+
+			else {
+				if (RLCommand != null) {
+					RLCommand.start();
+				}
+			}
+		}
 	}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		swerve.smartDash();
 		elevator.smartdash();
+		elevator.elevMP.update();
 		path.update();
-		follower.update();
+		//follower.update();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve dist " + i, swerve.modules[i].getDistance());
 

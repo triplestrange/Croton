@@ -45,10 +45,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 		if (joy2.getRawButton(Constants.Controller.START)) {
 			// resets the elevator so that the encoder is at 0 at the bottom
 			elevMP.cancel();
-			cimShifter1.set(ControlMode.PercentOutput, -.5);
-			cimShifter2.set(ControlMode.PercentOutput, -.5);
-			cimShifter3.set(ControlMode.PercentOutput, -.5);
-			encoder.reset();
+			reset();
 		}
 		
 		if (joy2.getRawButtonPressed(1)) {
@@ -118,6 +115,9 @@ public class Elevator extends Subsystem implements PIDOutput {
 		// SmartDashboard.putNumber("Z-Axis", joy2.getZ());
 	}
 
+	public void reset() {
+		encoder.reset();
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

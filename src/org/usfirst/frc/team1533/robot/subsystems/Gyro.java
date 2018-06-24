@@ -1,16 +1,15 @@
 package org.usfirst.frc.team1533.robot.subsystems;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Gyro {
-	public static ADXRS450_Gyro gyro;
+	public static AHRS gyro;
 	double currentangle;
 	static double offset = 0;
 	
 	public Gyro(){
-		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-		gyro.calibrate();
+		gyro = new AHRS(SPI.Port.kMXP);
 	}
 
 	public static double getAngle() {
