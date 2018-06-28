@@ -53,7 +53,6 @@ public class SwerveModule implements PIDSource, PIDOutput {
 		driveController.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		driveController.setSensorPhase(true);
 		resetEncoder();
-		driveController.configOpenloopRamp(0.25, 5);
 	}
 
 	public void enable() {

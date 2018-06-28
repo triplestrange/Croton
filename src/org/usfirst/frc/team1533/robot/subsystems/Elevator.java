@@ -117,6 +117,7 @@ public class Elevator extends Subsystem implements PIDOutput {
 
 	public void reset() {
 		encoder.reset();
+		elevMP.cancel();
 	}
 	@Override
 	protected void initDefaultCommand() {

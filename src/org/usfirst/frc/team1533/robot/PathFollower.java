@@ -25,7 +25,7 @@ public class PathFollower {
 	double xPower, yPower, zPower;
 	SwerveTrajectory currentTrajectory;
 	long startTime;
-	double kP = 0.0011;
+	double kP = 0.0007;
 	double kD = 0.00005;
 	
 	public PathFollower() {

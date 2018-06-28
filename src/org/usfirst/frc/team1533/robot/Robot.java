@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		LLChooser.addObject("Path - 1/LScale/Right", new PathAutoLScaleRight());
+		LLChooser.addObject("Path - 2/LScale/Left", new PathAutoLScaleLeft2());
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
@@ -77,6 +78,7 @@ public class Robot extends IterativeRobot {
 		RRChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		RRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		RRChooser.addObject("Path - 1/RScale/Right", new PathAutoRScaleRight());
+		RRChooser.addObject("Path - 2/RScale/Right", new PathAutoRScaleRight2());
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();

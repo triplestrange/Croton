@@ -269,6 +269,7 @@ public class SwerveDrive extends Subsystem implements PIDSource, PIDOutput{
 		SmartDashboard.putNumber("FR", modules[1].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BL", modules[2].getAngle()*360/(2*Math.PI));
 		SmartDashboard.putNumber("BR", modules[3].getAngle()*360/(2*Math.PI));
+		SmartDashboard.putNumber("FLdrive", modules[1].driveController.get());
 	}
 
 	@Override

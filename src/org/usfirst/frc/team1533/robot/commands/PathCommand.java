@@ -20,9 +20,10 @@ public PathCommand(SwerveWaypoint... waypoints) {
 	traj = SwerveTrajectory.generate(config, waypoints, rotVel);
 }
 
-public PathCommand(double speed, double acc, SwerveWaypoint... waypoints) {
+public PathCommand(double speed, double acc, double rotVel, SwerveWaypoint... waypoints) {
 	this.speed = speed;
 	this.acc = acc;
+	this.rotVel = rotVel;
 	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, speed, acc, 100.0);
 	traj = SwerveTrajectory.generate(config, waypoints, rotVel);
 }
