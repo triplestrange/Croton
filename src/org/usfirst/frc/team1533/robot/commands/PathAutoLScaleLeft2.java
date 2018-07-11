@@ -8,7 +8,7 @@ import jaci.pathfinder.Pathfinder;
 
 public class PathAutoLScaleLeft2 extends CommandGroup{
 	public PathAutoLScaleLeft2() {
-		addParallel(new PathCommand(84, 40, 45,
+		addParallel(new PathCommand(84, 40, 45, 180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), 0),
 				new SwerveWaypoint(0, 200, Pathfinder.d2r(90), 0),
 				new SwerveWaypoint(36, 275, Pathfinder.d2r(90), 0)
@@ -17,14 +17,14 @@ public class PathAutoLScaleLeft2 extends CommandGroup{
 		addSequential(new ElevatorProfile(39));
 		addSequential(new WaitCommand(.5));
 		addSequential(new Intake(1, 0.5));
-		addParallel(new PathCommand(18, 40, 90,
+		addParallel(new PathCommand(18, 40, 90, 180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), 0),
 				new SwerveWaypoint(0, -60, Pathfinder.d2r(90), -180)
 				));
 		addSequential(new WaitCommand(.25));
 		addSequential(new ElevatorProfile(0));
 		addSequential(new Intake(2, -1));
-		addParallel(new PathCommand(18, 40, 90,
+		addParallel(new PathCommand(18, 40, 90, 180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), -180),
 				new SwerveWaypoint(0, 60, Pathfinder.d2r(90), 0)
 				));

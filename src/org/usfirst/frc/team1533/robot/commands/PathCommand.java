@@ -11,21 +11,23 @@ public class PathCommand extends Command{
 	double speed = 96.0;
 	double acc = 40.0;
 	double rotVel = 45;
+	double angularAcc = 180;
 	SwerveWaypoint[] waypoints;
 	SwerveTrajectory traj;
 	
 public PathCommand(SwerveWaypoint... waypoints) {
 	this.waypoints = waypoints;
 	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, speed, acc, 100.0);
-	traj = SwerveTrajectory.generate(config, waypoints, rotVel);
+	traj = SwerveTrajectory.generate(config, waypoints, rotVel, angularAcc);
 }
 
-public PathCommand(double speed, double acc, double rotVel, SwerveWaypoint... waypoints) {
+public PathCommand(double speed, double acc, double rotVel, double angularAcc, SwerveWaypoint... waypoints) {
 	this.speed = speed;
 	this.acc = acc;
 	this.rotVel = rotVel;
+	this.angularAcc = angularAcc;
 	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, speed, acc, 100.0);
-	traj = SwerveTrajectory.generate(config, waypoints, rotVel);
+	traj = SwerveTrajectory.generate(config, waypoints, rotVel, angularAcc);
 }
 public void initialize() {
 	Robot.path.reset();

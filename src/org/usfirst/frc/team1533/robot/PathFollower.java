@@ -38,7 +38,7 @@ public class PathFollower {
 		
 		this.xProfile = new ProfileFollower(.008, 0.005, 0, 0, 0, new PIDSourceAdapter(() -> Robot.path.currentX), (x) -> xPower = x);
 		this.yProfile = new ProfileFollower(.008, 0.005, 0, 0, 0, new PIDSourceAdapter(() -> Robot.path.currentY), (y) -> yPower = y);
-		this.zProfile = new ProfileFollower(.003, 0, 0.01, 0, 0.0025, new PIDSourceAdapter(() -> Robot.path.currentZ), (z) -> zPower = z);
+		this.zProfile = new ProfileFollower(.003, 0, 0.005, 0, 0.0025, new PIDSourceAdapter(() -> Robot.path.currentZ), (z) -> zPower = z);
 	}
 	
 	private double totalTime(Trajectory t) {
@@ -90,28 +90,32 @@ public class PathFollower {
 			}
 		});
 		zProfile.startProfile(new MotionProfile() {
-			int currentWaypoint = 1;
-			double lastTarget = currentTrajectory.waypoints[0].rotation;
+			int currentWaypoint = 0;
+//			double lastTarget = currentTrajectory.waypoints[0].rotation;
 			public double currentP(double t) {
-				double angle;
-				double target = currentTrajectory.waypoints[currentWaypoint].rotation;
-				double lastTime = currentTrajectory.waypointTime[currentWaypoint-1];
-				if (target > lastTarget) {
-					angle = lastTarget + (t-lastTime) * currentTrajectory.angularVelocity;
-					if (angle > target) angle = target;
-				} else if (target < lastTarget) {
-					angle = lastTarget - (t-lastTime) * currentTrajectory.angularVelocity;
-					if (angle < target) angle = target;
-				} else angle = target;
-				if (t >= currentTrajectory.waypointTime[currentWaypoint] && currentWaypoint < currentTrajectory.waypoints.length-1) {
-					currentWaypoint++;
-					lastTarget = angle;
+				if(t >= currentTrajectory.waypointTime[currentWaypoint+1] && currentWaypoint < currentTrajectory.waypoints.length-2) {
+					currentWaypoint = currentWaypoint+1;
 				}
+				double angle = currentTrajectory.gyroProfile[currentWaypoint].currentP(t-currentTrajectory.waypointTime[currentWaypoint]);
+				
+//				double target = currentTrajectory.waypoints[currentWaypoint].rotation;
+//				double lastTime = currentTrajectory.waypointTime[currentWaypoint-1];
+//				if (target > lastTarget) {
+//					angle = lastTarget + (t-lastTime) * currentTrajectory.angularVelocity;
+//					if (angle > target) angle = target;
+//				} else if (target < lastTarget) {
+//					angle = lastTarget - (t-lastTime) * currentTrajectory.angularVelocity;
+//					if (angle < target) angle = target;
+//				} else angle = target;
+//				if (t >= currentTrajectory.waypointTime[currentWaypoint] && currentWaypoint < currentTrajectory.waypoints.length-1) {
+//					currentWaypoint++;
+//					lastTarget = angle;
+//				}
 				SmartDashboard.putNumber("zProfileTargetP", angle);
 				return angle;
 			}
 			public double currentV(double t) {
-				return currentTrajectory.angularVelocity * Math.signum(currentTrajectory.waypoints[currentWaypoint].rotation - currentP(t));
+				return currentTrajectory.gyroProfile[currentWaypoint].currentV(t-currentTrajectory.waypointTime[currentWaypoint]);
 			}
 			public double totalTime() {
 				return PathFollower.this.totalTime(currentTrajectory);

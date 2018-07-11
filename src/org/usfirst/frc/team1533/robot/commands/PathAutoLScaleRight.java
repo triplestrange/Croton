@@ -7,7 +7,7 @@ import jaci.pathfinder.Pathfinder;
 
 public class PathAutoLScaleRight extends CommandGroup {
 	public PathAutoLScaleRight() {
-		addSequential(new PathCommand(96, 35, 45,
+		addSequential(new PathCommand(96, 35, 45, 180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), 0),
 				new SwerveWaypoint(0, 194, Pathfinder.d2r(90), 0),
 				new SwerveWaypoint(-36, 230, Pathfinder.d2r(180), 0),
