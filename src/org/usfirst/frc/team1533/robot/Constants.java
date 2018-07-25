@@ -35,7 +35,7 @@ public class Constants {
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Croton
 		public final static double FL_ENC_OFFSET = 41;
-		public final static double FR_ENC_OFFSET = 155;
+		public final static double FR_ENC_OFFSET = 155+90+67;
 		public final static double BL_ENC_OFFSET = 80;
 		public final static double BR_ENC_OFFSET = 318;
 		

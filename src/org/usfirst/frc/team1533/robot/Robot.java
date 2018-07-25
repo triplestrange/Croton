@@ -43,20 +43,29 @@ public class Robot extends IterativeRobot {
 		pneumatics.defaultvalue();
 
 		// Setup Autonomous command selection within SmartDashboard
-
+		long startTime = System.nanoTime();
+		PathAutoRScaleRight2 Rscale2 = new PathAutoRScaleRight2();
+		PathAutoRScaleRight Rscale1 = new PathAutoRScaleRight();
+		AutoBaselineStraight Baseline = new AutoBaselineStraight();
+		PathAutoLSwitchLeft Lswitch3 = new PathAutoLSwitchLeft();
+		PathAutoRSwitchRight Rswitch3 = new PathAutoRSwitchRight();
+		PathExperimentalAutoLScaleRight Cross = new PathExperimentalAutoLScaleRight();
+		PathAutoLScaleRight Lscale1Cross = new PathAutoLScaleRight();
+		PathAutoLScaleLeft2 Lscale2 = new PathAutoLScaleLeft2();
+		
 		LLChooser = new SendableChooser<Command>();
 		LLChooser.addDefault("2/LSwitch/Middle", new AutoLSwitchMiddle());
 		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
 		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
 		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
 		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
-		LLChooser.addObject("Baseline", new AutoBaselineStraight());
 		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
-		LLChooser.addObject("Path - 1/LScale/Right", new PathAutoLScaleRight());
-		LLChooser.addObject("Path - 2/LScale/Left", new PathAutoLScaleLeft2());
-		LLChooser.addObject("PathEXP - 1/LScale/Right", new PathExperimentalAutoLScaleRight());
-		LLChooser.addObject("Path - Switch/Left", new PathAutoLSwitchLeft());
+		LLChooser.addObject("Path - Baseline/150", Baseline);
+		LLChooser.addObject("Path - 1/LScale/Right", Lscale1Cross);
+		LLChooser.addObject("Path - 2/LScale/Left", Lscale2);
+		LLChooser.addObject("PathEXP - 0/LScale/Right", Cross);
+		LLChooser.addObject("Path - Switch/Left", Lswitch3);
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
@@ -65,9 +74,12 @@ public class Robot extends IterativeRobot {
 		LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		LRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
 		LRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
-		LRChooser.addObject("Baseline", new AutoBaselineStraight());
 		LRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		LRChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		LRChooser.addObject("Path-Baseline/150", Baseline);
+		LRChooser.addObject("Path - 1/RScale/Right", Rscale1);
+		LRChooser.addObject("Path - 2/RScale/Right", Rscale2);
+		LRChooser.addObject("Path - Switch/Left", Lswitch3);
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
@@ -76,12 +88,12 @@ public class Robot extends IterativeRobot {
 		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
 		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
 		RRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
-		RRChooser.addObject("Baseline", new AutoBaselineStraight());
 		RRChooser.addObject("Baseline/Right", new AutoBaselineRight());
 		RRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
-		RRChooser.addObject("Path - 1/RScale/Right", new PathAutoRScaleRight());
-		RRChooser.addObject("Path - 2/RScale/Right", new PathAutoRScaleRight2());
-		RRChooser.addObject("Path - Switch/Right", new PathAutoRSwitchRight());
+		RRChooser.addObject("Path - Baseline/150", Baseline);
+		RRChooser.addObject("Path - 1/RScale/Right", Rscale1);
+		RRChooser.addObject("Path - 2/RScale/Right", Rscale2);
+		RRChooser.addObject("Path - Switch/Right", Rswitch3);
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
@@ -90,10 +102,15 @@ public class Robot extends IterativeRobot {
 		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
 		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
 		RLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
-		RLChooser.addObject("Baseline", new AutoBaselineStraight());
 		RLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
 		RLChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		RLChooser.addObject("Path - Baseline/150", Baseline);
+		RLChooser.addObject("Path - 2/LScale/Left", Lscale2);
+		RLChooser.addObject("Path - 1/LScale/Right", Lscale1Cross);
+		RLChooser.addObject("Path - 0/LScale/Right", Cross);
+		RLChooser.addObject("Path - Switch/Right", Rswitch3);
 		SmartDashboard.putData("RLAutoChooser", RLChooser);
+		SmartDashboard.putNumber("boot time", (System.nanoTime()-startTime)/1e9);
 	}
 
 	public void disabledInit() {

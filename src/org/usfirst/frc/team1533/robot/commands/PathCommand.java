@@ -17,7 +17,7 @@ public class PathCommand extends Command{
 	
 public PathCommand(SwerveWaypoint... waypoints) {
 	this.waypoints = waypoints;
-	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, speed, acc, 100.0);
+	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_LOW, 0.05, speed, acc, 100.0);
 	traj = SwerveTrajectory.generate(config, waypoints, rotVel, angularAcc);
 }
 
@@ -26,7 +26,7 @@ public PathCommand(double speed, double acc, double rotVel, double angularAcc, S
 	this.acc = acc;
 	this.rotVel = rotVel;
 	this.angularAcc = angularAcc;
-	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, speed, acc, 100.0);
+	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_LOW, 0.05, speed, acc, 100.0);
 	traj = SwerveTrajectory.generate(config, waypoints, rotVel, angularAcc);
 }
 public void initialize() {
