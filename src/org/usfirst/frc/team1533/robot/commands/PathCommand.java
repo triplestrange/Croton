@@ -10,7 +10,7 @@ import jaci.pathfinder.Trajectory;
 public class PathCommand extends Command{
 	double speed = 96.0;
 	double acc = 40.0;
-	double rotVel = 45;
+	double rotVel = 180;
 	double angularAcc = 180;
 	SwerveWaypoint[] waypoints;
 	SwerveTrajectory traj;

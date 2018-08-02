@@ -40,11 +40,12 @@ public class PathFollower {
 		
 		//this.xProfile = new ProfileFollower(.008, 0.005, 0, 0, 0, new PIDSourceAdapter(() -> Robot.path.currentX), (x) -> xPower = x);
 		//this.yProfile = new ProfileFollower(.008, 0.005, 0, 0, 0, new PIDSourceAdapter(() -> Robot.path.currentY), (y) -> yPower = y);
-		this.zProfile = new ProfileFollower(.003, 0, 0.015, 0, 0.001, new PIDSourceAdapter(() -> Robot.path.currentZ), (z) -> zPower = z);
+		this.zProfile = new ProfileFollower(.002, 0, 0.02, 0, 0.002, new PIDSourceAdapter(() -> Robot.path.currentZ), (z) -> zPower = z);
 		this.parProfile = new ProfileFollower(.008, 0.005, 0.1, 0, 0.01, new PIDSourceAdapter(() -> 0.0), (y) -> parPower = y);
 		this.perpProfile = new ProfileFollower(0, 0, 0.05, 0, 0.0, new PIDSourceAdapter(() -> 0.0), (x) -> perpPower = x);
 		if (!SmartDashboard.containsKey("zP")) SmartDashboard.putNumber("zP", zProfile.kP);
 		if (!SmartDashboard.containsKey("zD")) SmartDashboard.putNumber("zD", zProfile.kD);
+		if (!SmartDashboard.containsKey("zV")) SmartDashboard.putNumber("zV", zProfile.kV);
 		if (!SmartDashboard.containsKey("parP")) SmartDashboard.putNumber("parP", parProfile.kP);
 		if (!SmartDashboard.containsKey("parD")) SmartDashboard.putNumber("parD", parProfile.kD);
 		if (!SmartDashboard.containsKey("perpP")) SmartDashboard.putNumber("perpP", perpProfile.kP);
@@ -67,6 +68,7 @@ public class PathFollower {
 	public void startTrajectory(SwerveTrajectory t) {
 		zProfile.kP = SmartDashboard.getNumber("zP", zProfile.kP);
 		zProfile.kD = SmartDashboard.getNumber("zD", zProfile.kD);
+		zProfile.kV = SmartDashboard.getNumber("zV", zProfile.kV);
 		parProfile.kP = SmartDashboard.getNumber("parP", parProfile.kP);
 		parProfile.kD = SmartDashboard.getNumber("parD", parProfile.kD);
 		perpProfile.kP = SmartDashboard.getNumber("perpP", perpProfile.kP);
