@@ -2,6 +2,8 @@ package org.usfirst.frc.team1533.robot;
 
 import org.usfirst.frc.team1533.robot.commands.*;
 import org.usfirst.frc.team1533.robot.subsystems.*;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -38,6 +40,8 @@ public class Robot extends IterativeRobot {
 		path = new PathTracking(swerve);
 		follower = new PathFollower();
 		path.reset();
+		//Camera for USB
+		CameraServer.getInstance().startAutomaticCapture();
 
 		// set pneumatics to starting configuration
 		pneumatics.defaultvalue();

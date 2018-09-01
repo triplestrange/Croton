@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Trajectory;
 
 public class PathCommand extends Command{
-	double speed = 96.0;
-	double acc = 40.0;
+	double speed = 144.0;
+	double acc = 96.0;
 	double rotVel = 180;
 	double angularAcc = 180;
 	SwerveWaypoint[] waypoints;
