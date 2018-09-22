@@ -15,15 +15,15 @@ public class PathAutoLSwitchLeft extends CommandGroup{
 		addSequential(new ElevatorProfile(15));
 		addSequential(new WaitCommand(2.25));
 		addSequential(new Intake(0.5,1));
-		addParallel(new PathCommand(
+		addParallel(new PathCommand(96,40,45,180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(270), 0),
-				new SwerveWaypoint(28, -48, Pathfinder.d2r(0), 0),
-				new SwerveWaypoint(62, -12, Pathfinder.d2r(90), 0)
+				new SwerveWaypoint(36, -48, Pathfinder.d2r(0), 0),
+				new SwerveWaypoint(54, -12, Pathfinder.d2r(90), 0)
 				));
 		addSequential(new WaitCommand(1.5));
 		addParallel(new ElevatorProfile(0));
 		addSequential(new Intake(1.5,-1));
-		addParallel(new PathCommand(
+		addParallel(new PathCommand(96,40,45,180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(0), 0),
 				new SwerveWaypoint(-18,-12, Pathfinder.d2r(165), 0),
 				new SwerveWaypoint(-45, 55, Pathfinder.d2r(90), 0)
@@ -34,8 +34,8 @@ public class PathAutoLSwitchLeft extends CommandGroup{
 		addSequential(new Intake(0.5,1));
 		addParallel(new PathCommand(96,40,180,180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(270), 0),
-				new SwerveWaypoint(0, -9, Pathfinder.d2r(300), 45),
-				new SwerveWaypoint(48,-10, Pathfinder.d2r(0), 45)
+				new SwerveWaypoint(0, -18, Pathfinder.d2r(300), 45),
+				new SwerveWaypoint(48,-18, Pathfinder.d2r(0), 45)
 				));
 		addSequential(new WaitCommand(0.5));
 		addSequential(new ElevatorProfile(6));

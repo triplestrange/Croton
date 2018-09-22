@@ -34,16 +34,16 @@ public class Constants {
 
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Croton
-		public final static double FL_ENC_OFFSET = 41;
-		public final static double FR_ENC_OFFSET = 155+90+67;
-		public final static double BL_ENC_OFFSET = 80;
-		public final static double BR_ENC_OFFSET = 318;
+//		public final static double FL_ENC_OFFSET = 41;
+//		public final static double FR_ENC_OFFSET = 155+90+67;
+//		public final static double BL_ENC_OFFSET = 80;
+//		public final static double BR_ENC_OFFSET = 318;
 		
 		//Encoder offsets for Milo
-//		public final static double FL_ENC_OFFSET = 73;
-//		public final static double FR_ENC_OFFSET = 324;
-//		public final static double BL_ENC_OFFSET = 190;
-//		public final static double BR_ENC_OFFSET = 294.5;
+		public final static double FL_ENC_OFFSET = 73;
+		public final static double FR_ENC_OFFSET = 324;
+		public final static double BL_ENC_OFFSET = 190;
+		public final static double BR_ENC_OFFSET = 294.5;
 		
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;
