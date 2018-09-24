@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1533.robot.commands;
+package org.usfirst.frc.team1533.robot.commands.oldauto;
 import org.usfirst.frc.team1533.robot.Robot;
 import org.usfirst.frc.team1533.robot.subsystems.Gyro;
 

@@ -1,6 +1,7 @@
-package org.usfirst.frc.team1533.robot.commands;
+package org.usfirst.frc.team1533.robot.commands.oldauto;
 
 import org.usfirst.frc.team1533.robot.SwerveWaypoint;
+import org.usfirst.frc.team1533.robot.commands.PathCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import jaci.pathfinder.Pathfinder;

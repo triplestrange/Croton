@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1533.robot.commands;
+package org.usfirst.frc.team1533.robot.commands.oldauto;
 
 import org.usfirst.frc.team1533.robot.Constants;
 import edu.wpi.first.wpilibj.command.Command;

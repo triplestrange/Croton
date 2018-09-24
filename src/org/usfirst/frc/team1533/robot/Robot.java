@@ -58,62 +58,61 @@ public class Robot extends IterativeRobot {
 		PathAutoLScaleLeft2 Lscale2 = new PathAutoLScaleLeft2();
 		
 		LLChooser = new SendableChooser<Command>();
-		LLChooser.addDefault("2/LSwitch/Middle", new AutoLSwitchMiddle());
-		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
-		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
-		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
-		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
-		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
-		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
-		LLChooser.addObject("Path - Baseline/150", Baseline);
-		LLChooser.addObject("Path - 1/LScale/Right", Lscale1Cross);
-		LLChooser.addObject("Path - 2/LScale/Left", Lscale2);
-		LLChooser.addObject("PathEXP - 0/LScale/Right", Cross);
-		LLChooser.addObject("Path - Switch/Left", Lswitch3);
-		LLChooser.addObject("Path - Z Testing", new PathZtestinng());
+//		LLChooser.addObject("2/LSwitch/Middle", new AutoLSwitchMiddle());
+//		LLChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
+//		LLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
+//		LLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+//		LLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
+//		LLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+//		LLChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		LLChooser.addObject("Baseline/150", Baseline);
+		LLChooser.addObject("1/LScale/Right", Lscale1Cross);
+		LLChooser.addObject("2/LScale/Left", Lscale2);
+		LLChooser.addObject("0/LScale/Right", Cross);
+		LLChooser.addDefault("Switch/Left", Lswitch3);
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
-		LRChooser.addDefault("2/LSwitch/Middle", new AutoLSwitchMiddle());
-		LRChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
-		LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
-		LRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
-		LRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
-		LRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
-		LRChooser.addObject("Baseline/Right", new AutoBaselineRight());
-		LRChooser.addObject("Path-Baseline/150", Baseline);
-		LRChooser.addObject("Path - 1/RScale/Right", Rscale1);
-		LRChooser.addObject("Path - 2/RScale/Right", Rscale2);
-		LRChooser.addObject("Path - Switch/Left", Lswitch3);
+//		LRChooser.addObject("2/LSwitch/Middle", new AutoLSwitchMiddle());
+//		LRChooser.addObject("1/LSwitch/Left", new AutoLSwitchLeft());
+//		LRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
+//		LRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
+//		LRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
+//		LRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+//		LRChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		LRChooser.addObject("Baseline/150", Baseline);
+		LRChooser.addObject("1/RScale/Right", Rscale1);
+		LRChooser.addObject("2/RScale/Right", Rscale2);
+		LRChooser.addDefault("Switch/Left", Lswitch3);
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
-		RRChooser.addDefault("2/RSwitch/Middle", new AutoRSwitchMiddle());
-		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
-		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
-		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
-		RRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
-		RRChooser.addObject("Baseline/Right", new AutoBaselineRight());
-		RRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
-		RRChooser.addObject("Path - Baseline/150", Baseline);
-		RRChooser.addObject("Path - 1/RScale/Right", Rscale1);
-		RRChooser.addObject("Path - 2/RScale/Right", Rscale2);
-		RRChooser.addObject("Path - Switch/Right", Rswitch3);
+//		RRChooser.addDefault("2/RSwitch/Middle", new AutoRSwitchMiddle());
+//		RRChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
+//		RRChooser.addObject("1/RScale/Left", new AutoRScaleLeft());
+//		RRChooser.addObject("1/RScale/Right", new AutoRScaleRight());
+//		RRChooser.addObject("2/RScale/Right", new AutoRScale2Right());
+//		RRChooser.addObject("Baseline/Right", new AutoBaselineRight());
+//		RRChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+		RRChooser.addObject("Baseline/150", Baseline);
+		RRChooser.addObject("1/RScale/Right", Rscale1);
+		RRChooser.addObject("2/RScale/Right", Rscale2);
+		RRChooser.addDefault("Switch/Right", Rswitch3);
 		SmartDashboard.putData("RRAutoChooser", RRChooser);
 
 		RLChooser = new SendableChooser<Command>();
-		RLChooser.addDefault("2/RSwitch/Middle", new AutoRSwitchMiddle());
-		RLChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
-		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
-		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
-		RLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
-		RLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
-		RLChooser.addObject("Baseline/Right", new AutoBaselineRight());
-		RLChooser.addObject("Path - Baseline/150", Baseline);
-		RLChooser.addObject("Path - 2/LScale/Left", Lscale2);
-		RLChooser.addObject("Path - 1/LScale/Right", Lscale1Cross);
-		RLChooser.addObject("Path - 0/LScale/Right", Cross);
-		RLChooser.addObject("Path - Switch/Right", Rswitch3);
+//		RLChooser.addObject("2/RSwitch/Middle", new AutoRSwitchMiddle());
+//		RLChooser.addObject("1/RSwitch/Right", new AutoRSwitchRight());
+//		RLChooser.addObject("1/LScale/Right", new AutoLScaleRight());
+//		RLChooser.addObject("1/LScale/Left", new AutoLScaleLeft());
+//		RLChooser.addObject("2/LScale/Left", new AutoLScale2Left());
+//		RLChooser.addObject("Baseline/Left", new AutoBaselineLeft());
+//		RLChooser.addObject("Baseline/Right", new AutoBaselineRight());
+		RLChooser.addObject("Baseline/150", Baseline);
+		RLChooser.addObject("2/LScale/Left", Lscale2);
+		RLChooser.addObject("1/LScale/Right", Lscale1Cross);
+		RLChooser.addObject("0/LScale/Right", Cross);
+		RLChooser.addDefault("Switch/Right", Rswitch3);
 		SmartDashboard.putData("RLAutoChooser", RLChooser);
 		SmartDashboard.putNumber("boot time", (System.nanoTime()-startTime)/1e9);
 	}
@@ -144,19 +143,6 @@ public class Robot extends IterativeRobot {
 		path.update();
 	}
 
-//	Trajectory traj;
-//	{
-//		long time = System.nanoTime();
-//		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 72.0, 50.0, 100.0);
-//        Waypoint[] points = new Waypoint[] {
-////        		1323 testing
-////        		new Waypoint(0, 0, Pathfinder.d2r(270)),
-////        		new Waypoint(-28, -72, Pathfinder.d2r(180)),
-////        		new Waypoint(-56, -48, Pathfinder.d2r(90))
-//        };
-//        traj = Pathfinder.generate(points, config);
-//        SmartDashboard.putNumber("generation time", (System.nanoTime()-time)/1e9);
-//	}
 	public void autonomousInit() {
 		gyro.reset();
         path.reset();
@@ -208,7 +194,6 @@ public class Robot extends IterativeRobot {
 		elevator.smartdash();
 		elevator.elevMP.update();
 		path.update();
-		//follower.update();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve dist " + i, swerve.modules[i].getDistance());
 
@@ -230,14 +215,14 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("dt", (System.nanoTime()-time)/1e9);
 		time = System.nanoTime();
 		Scheduler.getInstance().run();
-		swerve.smartDash();
-		elevator.smartdash();
 		swerve.move();
 		elevator.move(joy2);
 		cubemech.move(joy2);
 		pneumatics.move(joy1);
+		path.update();
+		swerve.smartDash();
+		elevator.smartdash();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
-		path.update();
 	}
 }

@@ -1,5 +1,9 @@
-package org.usfirst.frc.team1533.robot.commands;
+package org.usfirst.frc.team1533.robot.commands.oldauto;
 
+import org.usfirst.frc.team1533.robot.commands.ArcProfile;
+import org.usfirst.frc.team1533.robot.commands.ElevatorProfile;
+import org.usfirst.frc.team1533.robot.commands.Intake;
+import org.usfirst.frc.team1533.robot.commands.StraightProfile;
 import org.usfirst.frc.team1533.robot.Constants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -91,22 +91,23 @@ public class Constants {
 	}
 
 	public static class Elevator {
-		public static final int cimShifter1 = 8;
-		public static final int cimShifter2 = 9;
-		public static final int cimShifter3 = 10;
+		public static final int cim1 = 8;
+		public static final int cim2 = 9;
+		public static final int cim3 = 10;
 		
-		public static final int MagEncoderPort1 = 0;
-		public static final int MagEncoderPort2 = 1;
+		public static final int mag1 = 0;
+		public static final int mag2 = 1;
 	}
 	public static class CubeMech {
-		
+		public static final int intakeL = 3;
+		public static final int intakeR = 4;
 	}
 	public static class Pneumatics {
-		public static final int solenoid1Port1 = 0;
-		public static final int solenoid1Port2 = 1;
-		public static final int solenoid2Port1 = 2;
-		public static final int solenoid2Port2 = 3;
-		public static final int solenoid3Port1 = 6;
-		public static final int solenoid3Port2 = 7;
+		public static final int sol1_1 = 0;
+		public static final int sol1_2 = 1;
+		public static final int sol2_1 = 2;
+		public static final int sol2_2 = 3;
+		public static final int sol3_1 = 6;
+		public static final int sol3_2 = 7;
 	}
 }

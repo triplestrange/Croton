@@ -1,7 +1,11 @@
-package org.usfirst.frc.team1533.robot.commands;
+package org.usfirst.frc.team1533.robot.commands.oldauto;
 import org.usfirst.frc.team1533.robot.Constants;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+import org.usfirst.frc.team1533.robot.commands.ArcProfile;
+import org.usfirst.frc.team1533.robot.commands.ElevatorProfile;
+import org.usfirst.frc.team1533.robot.commands.Intake;
+import org.usfirst.frc.team1533.robot.commands.StraightProfile;
 public class AutoRScale2Right extends CommandGroup {
 	public AutoRScale2Right() {
 		addParallel(new ElevatorProfile(10));
