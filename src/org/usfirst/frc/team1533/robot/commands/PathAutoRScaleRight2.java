@@ -10,7 +10,7 @@ public class PathAutoRScaleRight2 extends CommandGroup{
 	public PathAutoRScaleRight2() {
 		addParallel(new PathCommand(120, 96, 180, 180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), 0),
-				new SwerveWaypoint(0, 270, Pathfinder.d2r(90), -55)
+				new SwerveWaypoint(0, 280, Pathfinder.d2r(90), -55)
 				));
 		addSequential(new WaitCommand(1.5));
 		addSequential(new ElevatorProfile(36));

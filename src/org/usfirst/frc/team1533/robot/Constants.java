@@ -34,16 +34,16 @@ public class Constants {
 
 		// Offset of the encoders to correct the orientation of installation
 		// Encoder offsets for Croton
-//		public final static double FL_ENC_OFFSET = 41;
-//		public final static double FR_ENC_OFFSET = 155+90+67;
-//		public final static double BL_ENC_OFFSET = 80;
-//		public final static double BR_ENC_OFFSET = 318;
+		public final static double FL_ENC_OFFSET = 41;
+		public final static double FR_ENC_OFFSET = 315;
+		public final static double BL_ENC_OFFSET = 260;
+		public final static double BR_ENC_OFFSET = 316;
 		
 		//Encoder offsets for Milo
-		public final static double FL_ENC_OFFSET = 73;
-		public final static double FR_ENC_OFFSET = 324;
-		public final static double BL_ENC_OFFSET = 190;
-		public final static double BR_ENC_OFFSET = 294.5;
+//		public final static double FL_ENC_OFFSET = 73;
+//		public final static double FR_ENC_OFFSET = 324;
+//		public final static double BL_ENC_OFFSET = 190;
+//		public final static double BR_ENC_OFFSET = 294.5;
 		
 		// Whether or not the encoders are reversed
 		public static final boolean ENCODERS_REVERSED = false;
@@ -53,7 +53,7 @@ public class Constants {
 		public static final double WHEEL_BASE_LENGTH = 26.25;
 	}
 
-	public static class Controller {
+	public static class DirectInput {
 
 		// This class assigns names to numbers which correspond to Controller inputs
 
@@ -73,21 +73,38 @@ public class Constants {
 		public final static int RIGHT_TRIGGER = 8;
 		public final static int BACK = 9;
 		public final static int START = 10;
+		public final static int JOYL_PRESS = 11;
+		public final static int JOYR_PRESS = 12;
+	}
+	
+	public static class Xinput {
 
-		// Controller 2
+		// This class assigns names to numbers which correspond to Controller inputs
+
+		// Controller 1
 		// square
-		public final static int X2 = 1;
-		// X
-		public final static int A2 = 2;
+		public final static int A = 1;
+		// x
+		public final static int B = 2;
 		// circle
-		public final static int B2 = 3;
+		public final static int X = 3;
 		// triangle
-		public final static int Y2 = 4;
+		public final static int Y = 4;
 		// Others are self-explanatory
-		public final static int LEFT_BUMPER2 = 5;
-		public final static int RIGHT_BUMPER2 = 6;
-		public final static int LEFT_TRIGGER2 = 7;
-		public final static int RIGHT_TRIGGER2 = 8;
+		public final static int LEFT_BUMPER = 5;
+		public final static int RIGHT_BUMPER = 6;
+		public final static int BACK = 7;
+		public final static int START = 8;
+		public final static int JOYL_PRESS = 9;
+		public final static int JOYR_PRESS = 10;
+		
+		public final static int LX_AXIS = 0;
+		public final static int LY_AXIS = 1;
+		public final static int RX_AXIS = 4;
+		public final static int RY_AXIS = 5;
+		
+		public final static int LEFT_TRIGGER = 2;
+		public final static int RIGHT_TRIGGER = 3;
 	}
 
 	public static class Elevator {

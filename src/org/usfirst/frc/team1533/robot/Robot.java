@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1533.robot;
 
 import org.usfirst.frc.team1533.robot.commands.*;
+import org.usfirst.frc.team1533.robot.commands.oldauto.AutoBaselineStraight;
 import org.usfirst.frc.team1533.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -24,6 +25,7 @@ public class Robot extends IterativeRobot {
 	public static Pneumatics pneumatics;
 	public static PathTracking path;
 	public static PathFollower follower;
+	public static boolean oneController = false;
 	// Defines autonomous selection tools
 	Command LLCommand, RRCommand, LRCommand, RLCommand;
 	SendableChooser<Command> LLChooser, RRChooser, LRChooser, RLChooser;
@@ -33,7 +35,7 @@ public class Robot extends IterativeRobot {
 		gyro = new Gyro();
 		joy1 = new Joystick(0);
 		joy2 = new Joystick(1);
-		swerve = new SwerveDrive(joy1, gyro);
+		swerve = new SwerveDrive(gyro);
 		elevator = new Elevator();
 		cubemech = new CubeMech();
 		pneumatics = new Pneumatics();
@@ -42,9 +44,6 @@ public class Robot extends IterativeRobot {
 		path.reset();
 		//Camera for USB
 		CameraServer.getInstance().startAutomaticCapture();
-
-		// set pneumatics to starting configuration
-		pneumatics.defaultvalue();
 
 		// Setup Autonomous command selection within SmartDashboard
 		long startTime = System.nanoTime();
@@ -56,6 +55,8 @@ public class Robot extends IterativeRobot {
 		PathExperimentalAutoLScaleRight Cross = new PathExperimentalAutoLScaleRight();
 		PathAutoLScaleRight Lscale1Cross = new PathAutoLScaleRight();
 		PathAutoLScaleLeft2 Lscale2 = new PathAutoLScaleLeft2();
+		PathAutoLScaleLeft Lscale1 = new PathAutoLScaleLeft();
+		PathAutoLSwitchL Lswitch1 = new PathAutoLSwitchL();
 		
 		LLChooser = new SendableChooser<Command>();
 //		LLChooser.addObject("2/LSwitch/Middle", new AutoLSwitchMiddle());
@@ -70,6 +71,8 @@ public class Robot extends IterativeRobot {
 		LLChooser.addObject("2/LScale/Left", Lscale2);
 		LLChooser.addObject("0/LScale/Right", Cross);
 		LLChooser.addDefault("Switch/Left", Lswitch3);
+		LLChooser.addObject("1/LScale/Left", Lscale1);
+		LLChooser.addDefault("Switch/Left/Testing", Lswitch1);
 		SmartDashboard.putData("LLAutoChooser", LLChooser);
            
 		LRChooser = new SendableChooser<Command>();
@@ -84,6 +87,7 @@ public class Robot extends IterativeRobot {
 		LRChooser.addObject("1/RScale/Right", Rscale1);
 		LRChooser.addObject("2/RScale/Right", Rscale2);
 		LRChooser.addDefault("Switch/Left", Lswitch3);
+		LRChooser.addDefault("Switch/Left/Testing", Lswitch1);
 		SmartDashboard.putData("LRAutoChooser", LRChooser);
 
 		RRChooser = new SendableChooser<Command>();
@@ -113,8 +117,10 @@ public class Robot extends IterativeRobot {
 		RLChooser.addObject("1/LScale/Right", Lscale1Cross);
 		RLChooser.addObject("0/LScale/Right", Cross);
 		RLChooser.addDefault("Switch/Right", Rswitch3);
+		RLChooser.addObject("1/LScale/Left", Lscale1);
 		SmartDashboard.putData("RLAutoChooser", RLChooser);
 		SmartDashboard.putNumber("boot time", (System.nanoTime()-startTime)/1e9);
+		SmartDashboard.putBoolean("One Controller?", oneController);
 	}
 
 	public void disabledInit() {
@@ -147,6 +153,8 @@ public class Robot extends IterativeRobot {
 		gyro.reset();
         path.reset();
 		elevator.reset();
+		// set pneumatics to starting configuration
+		pneumatics.defaultvalue();
 		
         //follower.startTrajectory(traj);
 		String gameData;
@@ -208,6 +216,8 @@ public class Robot extends IterativeRobot {
 			LRCommand.cancel();
 		if (RLCommand != null)
 			RLCommand.cancel();
+		// set pneumatics to starting configuration
+		pneumatics.defaultvalue();
 	}
 
 	long time = System.nanoTime();
@@ -215,14 +225,15 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("dt", (System.nanoTime()-time)/1e9);
 		time = System.nanoTime();
 		Scheduler.getInstance().run();
-		swerve.move();
-		elevator.move(joy2);
-		cubemech.move(joy2);
+		swerve.move(joy1);
+		elevator.move(joy1, joy2);
+		cubemech.move(joy1, joy2);
 		pneumatics.move(joy1);
 		path.update();
 		swerve.smartDash();
 		elevator.smartdash();
 		for (int i = 0; i < 4; i++)
 			SmartDashboard.putNumber("swerve distance " + i, swerve.modules[i].getDistance());
+		oneController = SmartDashboard.getBoolean("One Controller?", oneController);
 	}
 }

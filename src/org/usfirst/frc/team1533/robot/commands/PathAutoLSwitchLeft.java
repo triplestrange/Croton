@@ -8,46 +8,48 @@ import jaci.pathfinder.Pathfinder;
 
 public class PathAutoLSwitchLeft extends CommandGroup{
 	public PathAutoLSwitchLeft() {
-		addParallel(new PathCommand(96,40,45,180,
-				new SwerveWaypoint(0, 0, Pathfinder.d2r(120), 0),
-				new SwerveWaypoint(-60, 118, Pathfinder.d2r(90), 0)
+		addParallel(new PathCommand(
+				new SwerveWaypoint(0, 0, Pathfinder.d2r(90), 0),
+				new SwerveWaypoint(-60, 108, Pathfinder.d2r(90), 0)
 				));
 		addSequential(new ElevatorProfile(15));
-		addSequential(new WaitCommand(2.25));
+		addSequential(new WaitCommand(2));
 		addSequential(new Intake(0.5,1));
-		addParallel(new PathCommand(96,40,45,180,
+		addParallel(new PathCommand(48,36,180,180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(270), 0),
-				new SwerveWaypoint(36, -48, Pathfinder.d2r(0), 0),
-				new SwerveWaypoint(54, -12, Pathfinder.d2r(90), 0)
+				new SwerveWaypoint(28, -52, Pathfinder.d2r(0), 0),
+				new SwerveWaypoint(57, -18, Pathfinder.d2r(90), 0)
 				));
-		addSequential(new WaitCommand(1.5));
-		addParallel(new ElevatorProfile(0));
-		addSequential(new Intake(1.5,-1));
-		addParallel(new PathCommand(96,40,45,180,
+		addSequential(new WaitCommand(0.5));
+		addSequential(new ElevatorProfile(0));
+		addSequential(new WaitCommand(1));
+		addSequential(new Intake(1,-1));
+		addParallel(new PathCommand(48,36,180,180,
 				new SwerveWaypoint(0, 0, Pathfinder.d2r(0), 0),
-				new SwerveWaypoint(-18,-12, Pathfinder.d2r(165), 0),
-				new SwerveWaypoint(-45, 55, Pathfinder.d2r(90), 0)
+				new SwerveWaypoint(-18,-12, Pathfinder.d2r(180), 0),
+				new SwerveWaypoint(-57, 60, Pathfinder.d2r(90), 0)
 				));
-		addSequential(new WaitCommand(1));
+		addSequential(new WaitCommand(0.5));
 		addSequential(new ElevatorProfile(15));
-		addSequential(new WaitCommand(1));
+		addSequential(new WaitCommand(1.25));
 		addSequential(new Intake(0.5,1));
-		addParallel(new PathCommand(96,40,180,180,
-				new SwerveWaypoint(0, 0, Pathfinder.d2r(270), 0),
-				new SwerveWaypoint(0, -18, Pathfinder.d2r(300), 45),
-				new SwerveWaypoint(48,-18, Pathfinder.d2r(0), 45)
+		addParallel(new PathCommand(36,24,180,180,
+				new SwerveWaypoint(0, 0, Pathfinder.d2r(300), 0),
+				new SwerveWaypoint(24, -36, Pathfinder.d2r(0), 0),
+				new SwerveWaypoint(60, 12, Pathfinder.d2r(90), 0)
 				));
-		addSequential(new WaitCommand(0.5));
-		addSequential(new ElevatorProfile(6));
-		addSequential(new Intake(1.25,-1));
-		addParallel(new PathCommand(96,40,90,180,
-				new SwerveWaypoint(0, 0, Pathfinder.d2r(180), 45),
-				new SwerveWaypoint(-24, 0, Pathfinder.d2r(180), 45),
-				new SwerveWaypoint(-48, 12, Pathfinder.d2r(180), 0)
-				));
-		addSequential(new WaitCommand(0.5));
-		addSequential(new ElevatorProfile(15));
 		addSequential(new WaitCommand(0.25));
+		addSequential(new ElevatorProfile(5.5));
+		addParallel(new Intake(3,-1));
+		addSequential(new WaitCommand(3.5));
+		addParallel(new PathCommand(48,36,180,180,
+				new SwerveWaypoint(0, 0, Pathfinder.d2r(0), 0),
+				new SwerveWaypoint(-24,-6, Pathfinder.d2r(180), 0),
+				new SwerveWaypoint(-40, 24, Pathfinder.d2r(90), 0)
+				));
+		addSequential(new WaitCommand(1));
+		addSequential(new ElevatorProfile(15));
+		addSequential(new WaitCommand(0.5));
 		addSequential(new Intake(0.5,1));
 }
 }
